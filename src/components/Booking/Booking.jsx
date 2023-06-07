@@ -3,6 +3,7 @@ import "./Booking.css";
 import Header from "../Header/Header";
 import LoadingSpinner from "../Spinner/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { id } from "date-fns/locale";
 
 const nextDate = (index) => {
   var today = new Date();
@@ -27,6 +28,7 @@ function Booking() {
   const [detail, setDetail] = useState(new Map());
   const [service, setService] = useState("");
   const [sl, setSl] = useState(false);
+  const [bid, setBid] = useState("");
   const [cl, setCl] = useState(false);
   const [coating, setCoating] = useState("");
   const d = new Date();
@@ -145,7 +147,7 @@ function Booking() {
                     <tr key={i}>
                       <th scope="row">{`${nextDate(v + 1)}`}</th>
 
-                      {slots.map(function (value) {
+                      {slots.map(function (value, x) {
                         const string = `${nextDate(v + 1)}_${value}`;
                         const avail = !detail.get(
                           `${nextDate(v + 1)}_${value}`
@@ -153,13 +155,18 @@ function Booking() {
                         return (
                           <td key={value}>
                             <button
+                              id={`${i}${x}`}
                               onClick={() => {
                                 tempBook = avail ? string : tempBook;
                                 setSl(true);
+                                setBid(`${i}${x}`);
+                                console.log(bid);
                               }}
                               className="table-button"
                               style={
-                                avail
+                                bid === `${i}${x}`
+                                  ? { backgroundColor: "orange" }
+                                  : avail
                                   ? { backgroundColor: "#51CA26" }
                                   : { backgroundColor: "red" }
                               }
@@ -180,7 +187,7 @@ function Booking() {
                     <tr key={i}>
                       <th scope="row">{`${nextDate(v + 1)}`}</th>
 
-                      {slots.map(function (value) {
+                      {slots.map(function (value, x) {
                         const string = `${nextDate(v + 1)}_${value}`;
                         const avail = !detail.get(
                           `${nextDate(v + 1)}_${value}`
@@ -188,13 +195,18 @@ function Booking() {
                         return (
                           <td key={value}>
                             <button
+                              id={`${i}${x}`}
                               onClick={() => {
                                 tempBook = avail ? string : tempBook;
                                 setSl(true);
+                                setBid(`${i}${x}`);
+                                console.log(bid);
                               }}
                               className="table-button"
                               style={
-                                avail
+                                bid === `${i}${x}`
+                                  ? { backgroundColor: "orange" }
+                                  : avail
                                   ? { backgroundColor: "#51CA26" }
                                   : { backgroundColor: "red" }
                               }
