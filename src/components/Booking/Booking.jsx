@@ -1,0 +1,341 @@
+import React, { useEffect, useState } from "react";
+import "./Booking.css";
+import Header from "../Header/Header";
+import LoadingSpinner from "../Spinner/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
+
+const nextDate = (index) => {
+  var today = new Date();
+  today.setDate(today.getDate() + ((index - 1 - today.getDay() + 7) % 7) + 1);
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const string = `${days[index % 7]} (${("0" + today.getDate()).slice(-2)}/${(
+    "0" +
+    (today.getMonth() + 1)
+  ).slice(-2)}/${today.getFullYear() % 100})`;
+  return string;
+};
+
+function Booking() {
+  const [detail, setDetail] = useState(new Map());
+  const [service, setService] = useState("");
+  const [sl, setSl] = useState(false);
+  const [cl, setCl] = useState(false);
+  const [coating, setCoating] = useState("");
+  const d = new Date();
+  var day = d.getDay();
+  var hours = d.getHours();
+  var tempBook = null;
+  const navigate = useNavigate();
+  const userName = JSON.parse(sessionStorage.getItem("name"));
+  const userEmail = JSON.parse(sessionStorage.getItem("email"));
+  const dept = JSON.parse(sessionStorage.getItem("dept"));
+  var cond1, cond2, condition;
+  if (dept === "MIED") {
+    cond1 = day < 4 || day > 5;
+    cond2 = day == 5 && hours >= 12;
+    condition = cond1 || cond2;
+  } else {
+    cond1 = day == 3 && hours > 12;
+    cond2 = day > 3;
+    condition = cond1 || cond2;
+  }
+  const [loading, setLoading] = useState(true);
+  const parr = [0, 1, 2, 3];
+  const parr2 = [4, 5];
+  const arr = parr.filter((v) => {
+    if (day > 5) {
+      return v;
+    } else {
+      return v >= day;
+    }
+  });
+  const arr2 = parr2.filter((v) => {
+    return v >= day;
+  });
+  const slots = [0, 1, 2, 3];
+  const details = new Map();
+
+  const fetchdata = async () => {
+    fetch("https://fesem-api.subhadipmandal.engineer/book/fetch")
+      .then(async (res) => {
+        var body = await res.json();
+        body.array?.map((items) => {
+          details.set(items.bookingCode, true);
+        });
+        setDetail(details);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(true);
+        window.location.reload();
+      });
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  const logout = () => {
+    sessionStorage.clear();
+    window.location.reload();
+  };
+  const handleSubmit = (event) => {
+    if (tempBook !== null) {
+      sessionStorage.setItem("service", JSON.stringify(service));
+      sessionStorage.setItem("coating", JSON.stringify(coating));
+      sessionStorage.setItem("bookingTime", JSON.stringify(tempBook));
+      navigate("/receipt");
+    }
+  };
+
+  return (
+    <>
+      <Header />
+      <button
+        className="table-button"
+        style={{ backgroundColor: "red", width: "80px" }}
+        value="logout"
+        onClick={logout}
+      >
+        LogOut
+      </button>
+      {condition && (
+        <>
+          <LoadingSpinner loading={loading} />
+          <div
+            className="table"
+            style={loading ? { display: "none" } : { display: "block" }}
+          >
+            <p className="title" style={{ fontWeight: "lighter" }}>
+              {`Welcome ${userName}, Book your slot now`}
+            </p>
+            <table className="booking-details">
+              <col />
+              <colgroup span="4"></colgroup>
+              <tr>
+                <td rowSpan="2"></td>
+                <th
+                  colSpan="4"
+                  className="time"
+                  style={{ textAlign: "center" }}
+                  scope="colgroup"
+                >
+                  Time
+                </th>
+              </tr>
+              <tr>
+                <th scope="col">9:30 A.M - 11:00A.M</th>
+                <th scope="col">11:30 A.M - 1:00P.M</th>
+                <th scope="col">2:00 P.M - 3:30P.M</th>
+                <th scope="col">4:00 P.M - 5:30P.M</th>
+              </tr>
+              {dept === "MIED" &&
+                detail !== undefined &&
+                arr.map(function (v, i) {
+                  return (
+                    <tr key={i}>
+                      <th scope="row">{`${nextDate(v + 1)}`}</th>
+
+                      {slots.map(function (value) {
+                        const string = `${nextDate(v + 1)}_${value}`;
+                        const avail = !detail.get(
+                          `${nextDate(v + 1)}_${value}`
+                        );
+                        return (
+                          <td key={value}>
+                            <button
+                              onClick={() => {
+                                tempBook = avail ? string : tempBook;
+                                setSl(true);
+                              }}
+                              className="table-button"
+                              style={
+                                avail
+                                  ? { backgroundColor: "#51CA26" }
+                                  : { backgroundColor: "red" }
+                              }
+                              disabled={!avail}
+                            >
+                              {avail ? "Available" : "Booked"}
+                            </button>{" "}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              {dept !== "MIED" &&
+                detail !== undefined &&
+                arr2.map(function (v, i) {
+                  return (
+                    <tr key={i}>
+                      <th scope="row">{`${nextDate(v + 1)}`}</th>
+
+                      {slots.map(function (value) {
+                        const string = `${nextDate(v + 1)}_${value}`;
+                        const avail = !detail.get(
+                          `${nextDate(v + 1)}_${value}`
+                        );
+                        return (
+                          <td key={value}>
+                            <button
+                              onClick={() => {
+                                tempBook = avail ? string : tempBook;
+                                setSl(true);
+                              }}
+                              className="table-button"
+                              style={
+                                avail
+                                  ? { backgroundColor: "#51CA26" }
+                                  : { backgroundColor: "red" }
+                              }
+                              disabled={!avail}
+                            >
+                              {avail ? "Available" : "Booked"}
+                            </button>{" "}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+            </table>
+          </div>
+          <form onSubmit={handleSubmit} className="methods">
+            <div className="booking-wrapper">
+              {sl && (
+                <div className="services">
+                  <h4>Booking Services</h4>
+
+                  <div className="option">
+                    <input
+                      type="radio"
+                      id="fesem"
+                      name="service"
+                      onClick={() => {
+                        setCl(true);
+                      }}
+                      value="FESEM"
+                      onChange={(e) => {
+                        setService(e.target.value);
+                      }}
+                      required
+                    />
+                    <label style={{ fontSize: "15px" }} htmlFor="fesem">
+                      FESEM
+                    </label>
+                    <br />
+                  </div>
+                  <div className="option">
+                    <input
+                      type="radio"
+                      id="eds"
+                      name="service"
+                      onClick={() => {
+                        setCl(true);
+                      }}
+                      value="FESEM + EDS"
+                      onChange={(e) => {
+                        setService(e.target.value);
+                      }}
+                      required
+                    />
+                    <label style={{ fontSize: "15px" }} htmlFor="eds">
+                      FESEM + EDS
+                    </label>
+                    <br />
+                  </div>
+                  <div className="option">
+                    <input
+                      type="radio"
+                      id="ebsd"
+                      name="service"
+                      onClick={() => {
+                        setCl(true);
+                      }}
+                      value="FESEM + EDS + EBSD"
+                      onChange={(e) => {
+                        setService(e.target.value);
+                      }}
+                      required
+                    />
+                    <label style={{ fontSize: "15px" }} htmlFor="ebsd">
+                      FESEM + EDS + EBSD
+                    </label>
+                    <br />
+                  </div>
+                </div>
+              )}
+              {cl && (
+                <div>
+                  <h4>Charges</h4>
+                  <div className="charges">
+                    <div className="option">
+                      <input
+                        type="radio"
+                        id="withoutCoating"
+                        name="charge"
+                        value="withoutCoating"
+                        onChange={(e) => {
+                          setCoating(e.target.value);
+                        }}
+                        required
+                      />
+                      <label
+                        style={{ fontSize: "15px" }}
+                        htmlFor="withoutCoating"
+                      >
+                        Without Coating{" "}
+                        {dept === "MIED" ? `(Rs. 50)` : `(Rs. 100)`}
+                      </label>
+                      <br />
+                    </div>
+                    <div className="option">
+                      <input
+                        type="radio"
+                        id="coating"
+                        name="charge"
+                        value="coating"
+                        onChange={(e) => {
+                          setCoating(e.target.value);
+                        }}
+                        required
+                      />
+                      <label style={{ fontSize: "15px" }} htmlFor="coating">
+                        With Coating{" "}
+                        {dept === "MIED" ? `(Rs. 75)` : `(Rs. 125)`}
+                      </label>
+                      <br />
+                    </div>
+                  </div>
+                  <div className="button">
+                    <input type="submit" value="Proceed" />
+                  </div>
+                </div>
+              )}
+            </div>
+          </form>
+        </>
+      )}
+      {!condition && (
+        <>
+          <div className="error">
+            Sorry the booking is closed as per now.. It will reopen at Friday
+            12pm for MIED Students and at Wednesday 12pm for Non-MIED Students
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+export default Booking;
