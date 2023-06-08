@@ -46,7 +46,7 @@ function Register() {
               >
                 <option hidden disabled selected value></option>
                 <option value="MIED">MIED</option>
-                <option value="others">Others(Pls provide your input)</option>
+                <option value="others">Other</option>
               </select>
             </div>
 
