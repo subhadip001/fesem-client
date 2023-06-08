@@ -31,10 +31,10 @@ function Booking() {
   const [bid, setBid] = useState("");
   const [cl, setCl] = useState(false);
   const [coating, setCoating] = useState("");
+  const [tempBook, setTempBook] = useState(null);
   const d = new Date();
   var day = d.getDay();
   var hours = d.getHours();
-  var tempBook = null;
   const navigate = useNavigate();
   const userName = JSON.parse(sessionStorage.getItem("name"));
   const userEmail = JSON.parse(sessionStorage.getItem("email"));
@@ -157,7 +157,9 @@ function Booking() {
                             <button
                               id={`${i}${x}`}
                               onClick={() => {
-                                tempBook = avail ? string : tempBook;
+                                var y = null;
+                                y = avail ? string : y;
+                                setTempBook(y);
                                 setSl(true);
                                 setBid(`${i}${x}`);
                                 console.log(bid);
@@ -197,7 +199,9 @@ function Booking() {
                             <button
                               id={`${i}${x}`}
                               onClick={() => {
-                                tempBook = avail ? string : tempBook;
+                                var y = null;
+                                y = avail ? string : y;
+                                setTempBook(y);
                                 setSl(true);
                                 setBid(`${i}${x}`);
                                 console.log(bid);
