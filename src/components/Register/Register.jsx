@@ -28,7 +28,7 @@ function Register() {
         setLoading(false);
       })
       .catch((error) => {
-        alert("Email already registered");
+        console.log(error);
         setLoading(false);
       });
   }
