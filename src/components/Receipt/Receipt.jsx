@@ -33,7 +33,7 @@ function Receipt() {
   }, []);
 
   const handleSubmit = async (event) => {
-    fetch("http://localhost:8080/book", {
+    fetch("https://fesem-api.subhadipmandal.engineer/book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

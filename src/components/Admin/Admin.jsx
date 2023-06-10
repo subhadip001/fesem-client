@@ -13,7 +13,7 @@ function Admin() {
     window.location.reload();
   };
   const handleDelete = async (id) => {
-    fetch("http://localhost:8080/admin/delete", {
+    fetch("https://fesem-api.subhadipmandal.engineer/admin/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ function Admin() {
     "4:00 P.M - 5:30P.M",
   ];
   const fetchdata = async () => {
-    fetch("http://localhost:8080/admin/fetch")
+    fetch("https://fesem-api.subhadipmandal.engineer/admin/fetch")
       .then(async (res) => {
         var body = await res.json();
         var arr2 = [];

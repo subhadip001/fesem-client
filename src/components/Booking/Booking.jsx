@@ -69,7 +69,7 @@ function Booking() {
   const details = new Map();
 
   const fetchdata = async () => {
-    fetch("http://localhost:8080/book/fetch")
+    fetch("https://fesem-api.subhadipmandal.engineer/book/fetch")
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {

@@ -34,7 +34,7 @@ function Abook() {
   const details = new Map();
 
   const fetchdata = async () => {
-    fetch("http://localhost:8080/book/fetch")
+    fetch("https://fesem-api.subhadipmandal.engineer/book/fetch")
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {
@@ -55,7 +55,7 @@ function Abook() {
   }, []);
 
   const handleSubmit = async (event) => {
-    fetch("http://localhost:8080/book", {
+    fetch("https://fesem-api.subhadipmandal.engineer/book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +127,6 @@ function Abook() {
                               setTempBook(y);
 
                               setBid(`${i}${x}`);
-                              
                             }}
                             className="table-button"
                             style={
