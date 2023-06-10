@@ -28,8 +28,9 @@ function Invoice() {
   useEffect(() => {
     downloadPdfDocument("divToDownload");
     setTimeout(() => {
-        navigate("/");
-      }, 10);
+      sessionStorage.clear();
+      navigate("/");
+    }, 10);
   }, []);
   const arr = [
     "9:30 A.M - 11:00A.M",
@@ -38,7 +39,7 @@ function Invoice() {
     "4:00 P.M - 5:30P.M",
   ];
   return (
-    <div id="divToDownload" >
+    <div id="divToDownload">
       <div className="invoice">
         <div className="logoHead">
           <img className="iitlogo" src={image} />

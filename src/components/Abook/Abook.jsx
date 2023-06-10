@@ -25,7 +25,8 @@ const nextDate = (index) => {
 
 function Abook() {
   const [detail, setDetail] = useState(new Map());
-  var tempBook = null;
+  const [bid, setBid] = useState("");
+  const [tempBook, setTempBook] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const arr = [0, 1, 2, 3, 4, 5];
@@ -36,7 +37,6 @@ function Abook() {
     fetch("https://fesem-api.subhadipmandal.engineer/book/fetch")
       .then(async (res) => {
         var body = await res.json();
-        console.log(body);
         body.array?.map((items) => {
           details.set(items.bookingCode, true);
         });
@@ -114,19 +114,25 @@ function Abook() {
                   <tr key={i}>
                     <th scope="row">{`${nextDate(i + 1)}`}</th>
 
-                    {slots.map(function (value) {
+                    {slots.map(function (value, x) {
                       const string = `${nextDate(i + 1)}_${value}`;
-                      console.log(detail.get(string));
                       const avail = !detail.get(`${nextDate(i + 1)}_${value}`);
                       return (
                         <td key={value}>
                           <button
+                            id={`${i}${x}`}
                             onClick={() => {
-                              tempBook = avail ? string : tempBook;
+                              var y = null;
+                              y = avail ? string : y;
+                              setTempBook(y);
+
+                              setBid(`${i}${x}`);
                             }}
                             className="table-button"
                             style={
-                              avail
+                              bid === `${i}${x}`
+                                ? { backgroundColor: "orange" }
+                                : avail
                                 ? { backgroundColor: "#51CA26" }
                                 : { backgroundColor: "red" }
                             }

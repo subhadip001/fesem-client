@@ -36,6 +36,11 @@ function Login({ setToken, setAdmin }) {
       sessionStorage.setItem("dept", JSON.stringify(result.dept));
       sessionStorage.setItem("contactNo", JSON.stringify(result.contactNo));
       sessionStorage.setItem("enrollNo", JSON.stringify(result.enrollNo));
+      sessionStorage.setItem(
+        "bookingsAvailableThisWeek",
+        JSON.stringify(result.bookingsAvailableThisWeek)
+      );
+      sessionStorage.setItem("_id", JSON.stringify(result.id));
 
       setToken({ token: result.token });
 
@@ -59,11 +64,12 @@ function Login({ setToken, setAdmin }) {
             <label htmlFor="email">Email</label>
             <br />
             <input
-              type="email"
+              type="text"
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               name="email"
               placeholder="Enter your email"
+              pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
               title="example@gmail.com"
               required
             />
