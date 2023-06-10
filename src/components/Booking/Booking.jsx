@@ -57,7 +57,7 @@ function Booking() {
   const parr2 = [4, 5];
   const arr = parr.filter((v) => {
     if (day > 5) {
-      return v;
+      return parr;
     } else {
       return v >= day;
     }
