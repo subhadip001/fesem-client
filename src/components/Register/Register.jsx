@@ -7,6 +7,7 @@ import LoadingSpinner from "../Spinner/LoadingSpinner";
 function Register() {
   const [inputs, setInputs] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -20,23 +21,19 @@ function Register() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-    })
-      .then((data) => {
-        data.json();
-        const nagivate = useNavigate();
-        nagivate("/login");
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
+    }).then((res) => {
+      if (res.status === 400) {
+        alert("Email has already been registered!");
+      }
+      setLoading(false);
+    });
   }
 
   const handleSubmit = (event) => {
     setLoading(true);
     event.preventDefault();
     regUser(inputs);
+    navigate("/login");
   };
   return (
     <>
