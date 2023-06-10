@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 async function loginUser(credentials) {
-  return fetch("https://fesem-api.subhadipmandal.engineer/login", {
+  return fetch("http://localhost:8080/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ async function loginUser(credentials) {
   }).then((data) => data.json());
 }
 
-function Login({ setToken, setAdmin }) {
+function Login({setToken,setAdmin}) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
@@ -25,26 +25,32 @@ function Login({ setToken, setAdmin }) {
       email: email,
       password: password,
     });
-    if (result.admin !== null) {
-      setAdmin({ admin: result.admin });
+    if(result.admin !== null){
+      setAdmin({admin: result.admin});
       console.log(result.admin);
       navigate("/");
     }
     if (result.token !== null) {
-      sessionStorage.setItem("name", JSON.stringify(result.name));
-      sessionStorage.setItem("email", JSON.stringify(result.email));
-      sessionStorage.setItem("dept", JSON.stringify(result.dept));
-      sessionStorage.setItem("contactNo", JSON.stringify(result.contactNo));
-      sessionStorage.setItem("enrollNo", JSON.stringify(result.enrollNo));
+      sessionStorage.setItem('name', JSON.stringify(result.name));
+      sessionStorage.setItem('email', JSON.stringify(result.email));
+      sessionStorage.setItem('dept', JSON.stringify(result.dept));
+      sessionStorage.setItem('contactNo', JSON.stringify(result.contactNo));
+      sessionStorage.setItem('enrollNo', JSON.stringify(result.enrollNo));
+      sessionStorage.setItem('bookingsAvailableThisWeek', JSON.stringify(result.bookingsAvailableThisWeek));
+      sessionStorage.setItem('_id', JSON.stringify(result.id));
 
-      setToken({ token: result.token });
 
+
+      setToken({token: result.token});
+      
       console.log(result);
       navigate("/");
+      
     } else
       alert(
         "The password or the email id entered is incorrect. Please try again or register"
       );
+  
   };
   return (
     <>
@@ -59,11 +65,12 @@ function Login({ setToken, setAdmin }) {
             <label htmlFor="email">Email</label>
             <br />
             <input
-              type="email"
+              type="text"
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               name="email"
               placeholder="Enter your email"
+              pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
               title="example@gmail.com"
               required
             />
@@ -92,7 +99,7 @@ function Login({ setToken, setAdmin }) {
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,
-  setAdmin: PropTypes.func.isRequired,
+  setAdmin : PropTypes.func.isRequired
 };
 
 export default Login;

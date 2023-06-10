@@ -2,37 +2,48 @@ import React, { useState } from "react";
 import Header from "../Header/Header";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../Spinner/LoadingSpinner";
 
-async function regUser(credentials) {
-  return fetch("https://fesem-api.subhadipmandal.engineer/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
+
 
 function Register() {
   const [inputs, setInputs] = useState({});
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  const nagivate = useNavigate();
+
+  async function regUser(credentials) {
+    return fetch("http://localhost:8080/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((data) => {
+        data.json();
+        const nagivate = useNavigate();
+        nagivate("/login");
+        setLoading(false);
+      })
+      .catch((error) => {alert("Email already registered");
+    setLoading(false);});
+  }
+
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     regUser(inputs);
-    console.log(inputs);
-    nagivate("/login");
   };
   return (
     <>
       <Header />
       <h3>Register</h3>
-
-      <form id="register" onSubmit={handleSubmit}>
+      {<LoadingSpinner loading={loading}/>}
+      {!loading && <form id="register" onSubmit={handleSubmit}>
         <div className="form-wrapper">
           <div className="wrapper">
             <div>
@@ -46,17 +57,18 @@ function Register() {
               >
                 <option hidden disabled selected value></option>
                 <option value="MIED">MIED</option>
-                <option value="others">Other</option>
+                <option value="others">Others(Pls provide your input)</option>
               </select>
             </div>
 
             <div>
               <label htmlFor="email">Student Email</label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 placeholder="Enter your Email"
+                pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
                 title="example@gmail.com"
                 onChange={handleChange}
                 required
@@ -186,6 +198,8 @@ function Register() {
           </div>
         </div>
       </form>
+}
+
     </>
   );
 }

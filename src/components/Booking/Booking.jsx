@@ -27,11 +27,11 @@ const nextDate = (index) => {
 function Booking() {
   const [detail, setDetail] = useState(new Map());
   const [service, setService] = useState("");
+  const [tempBook, setTempBook] = useState("");
   const [sl, setSl] = useState(false);
   const [bid, setBid] = useState("");
   const [cl, setCl] = useState(false);
   const [coating, setCoating] = useState("");
-  const [tempBook, setTempBook] = useState(null);
   const d = new Date();
   var day = d.getDay();
   var hours = d.getHours();
@@ -39,6 +39,9 @@ function Booking() {
   const userName = JSON.parse(sessionStorage.getItem("name"));
   const userEmail = JSON.parse(sessionStorage.getItem("email"));
   const dept = JSON.parse(sessionStorage.getItem("dept"));
+  const bookingsAvailableThisWeek = JSON.parse(
+    sessionStorage.getItem("bookingsAvailableThisWeek")
+  );
   var cond1, cond2, condition;
   if (dept === "MIED") {
     cond1 = day < 4 || day > 5;
@@ -66,7 +69,7 @@ function Booking() {
   const details = new Map();
 
   const fetchdata = async () => {
-    fetch("https://fesem-api.subhadipmandal.engineer/book/fetch")
+    fetch("http://localhost:8080/book/fetch")
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {
@@ -91,7 +94,9 @@ function Booking() {
     window.location.reload();
   };
   const handleSubmit = (event) => {
+    console.log(tempBook);
     if (tempBook !== null) {
+      event.preventDefault();
       sessionStorage.setItem("service", JSON.stringify(service));
       sessionStorage.setItem("coating", JSON.stringify(coating));
       sessionStorage.setItem("bookingTime", JSON.stringify(tempBook));
@@ -110,7 +115,7 @@ function Booking() {
       >
         LogOut
       </button>
-      {condition && (
+      {bookingsAvailableThisWeek == 1 && condition && (
         <>
           <LoadingSpinner loading={loading} />
           <div
@@ -163,6 +168,7 @@ function Booking() {
                                 setSl(true);
                                 setBid(`${i}${x}`);
                                 console.log(bid);
+                                console.log(tempBook);
                               }}
                               className="table-button"
                               style={
@@ -205,6 +211,7 @@ function Booking() {
                                 setSl(true);
                                 setBid(`${i}${x}`);
                                 console.log(bid);
+                                console.log(tempBook);
                               }}
                               className="table-button"
                               style={
@@ -217,7 +224,7 @@ function Booking() {
                               disabled={!avail}
                             >
                               {avail ? "Available" : "Booked"}
-                            </button>{" "}
+                            </button>
                           </td>
                         );
                       })}
@@ -342,11 +349,19 @@ function Booking() {
           </form>
         </>
       )}
-      {!condition && (
+      {bookingsAvailableThisWeek == 1 && !condition && (
         <>
           <div className="error">
             Sorry the booking is closed as per now.. It will reopen at Friday
             12pm for MIED Students and at Wednesday 12pm for Non-MIED Students
+          </div>
+        </>
+      )}
+      {bookingsAvailableThisWeek != 1 && (
+        <>
+          <div className="error">
+            Sorry you have already done booking for this week. Try again next
+            week!
           </div>
         </>
       )}

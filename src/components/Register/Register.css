@@ -11,7 +11,6 @@ input[type=text],
 input[type=password],
 input[type=number],
 input[type=date],
-input[type=email],
 select {
     padding: 6px;
     margin: 10px;

@@ -8,6 +8,7 @@ function Receipt() {
   const service = JSON.parse(sessionStorage.getItem("service"));
   const [button, setButton] = useState(true);
   const userName = JSON.parse(sessionStorage.getItem("name"));
+  const id2 = JSON.parse(sessionStorage.getItem("_id"));
   const userEmail = JSON.parse(sessionStorage.getItem("email"));
   const dept = JSON.parse(sessionStorage.getItem("dept"));
   const bookingCode = JSON.parse(sessionStorage.getItem("bookingTime"));
@@ -32,13 +33,14 @@ function Receipt() {
   }, []);
 
   const handleSubmit = async (event) => {
-    fetch("https://fesem-api.subhadipmandal.engineer/book", {
+    fetch("http://localhost:8080/book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         bookingTime: bookingCode,
+        id: id2,
         userName: userName,
         userEmail: userEmail,
         userDept: dept,
