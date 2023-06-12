@@ -64,12 +64,11 @@ function Login({ setToken, setAdmin }) {
             <label htmlFor="email">Email</label>
             <br />
             <input
-              type="text"
+              type="email"
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               name="email"
               placeholder="Enter your email"
-              pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
               title="example@gmail.com"
               required
             />
