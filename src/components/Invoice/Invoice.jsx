@@ -25,10 +25,10 @@ function Invoice() {
       pdf.save("invoice.pdf");
     });
   };
-  useEffect(() => {
+ useEffect(() => {
     downloadPdfDocument("divToDownload");
     setTimeout(() => {
-      sessionStorage.clear();
+      downloadPdfDocument("divToDownload");
       navigate("/");
     }, 10);
   }, []);
