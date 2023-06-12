@@ -14,6 +14,7 @@ function Homebar() {
           <a href="/register">Register</a>
         </div>
       </div>
+    <hr />
       <h2 className="about-heading">About</h2>
       <div className="content">
         <div className="about">
