@@ -9,10 +9,7 @@ function Header() {
           <div className="logo"></div>
           <h1>FESEM</h1>
         </div>
-        <div className="links">
-          <a href="/login">Login</a>
-          <a href="/register">Register</a>
-        </div>
+       
       </div>
       <hr />
     </>

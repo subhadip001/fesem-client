@@ -6,7 +6,15 @@ import Header from "../Header/Header";
 function Homebar() {
   return (
     <>
-      <Header />
+        <div className="header">
+        <div className="logo"></div>
+        <h1>FESEM</h1>
+        <div className="links">
+          <a href="/login">Login</a>
+          <a href="/register">Register</a>
+        </div>
+      </div>
+    <hr />
       <h2 className="about-heading">About</h2>
       <div className="content">
         <div className="about">
