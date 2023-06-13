@@ -8,9 +8,10 @@ function Homebar() {
     <>
       <Header />
       <h2 className="about-heading">About</h2>
-      <div className="content">
+      <div className="content"
+      >
         <div className="about">
-          <h2 style={{ fontWeight: "bold" }}>IIC FESEM Machine</h2>
+          <h2 style={{ fontWeight: "bold" }}>IIC-MIED FESEM Machine</h2>
           <br />
           <ul>
             <li>
@@ -20,7 +21,7 @@ function Homebar() {
             <li>
               In-charge Email/Phone -{" "}
               <span style={{ fontWeight: "bold" }}>
-                fesem@me.iitr.ac.in(6375980440)
+                fesem@me.iitr.ac.in
               </span>
             </li>
             <li>
@@ -44,12 +45,8 @@ function Homebar() {
               <span style={{ fontWeight: "bold" }}>Specifications</span>
               <br />
               <ul>
-                <li>Make:- Carl Zeiss</li>
-                <li>Model:- Zeiss GeminiSEM</li>
-                <li>Year of Installation:- 2019</li>
                 <li>Source:- Thermal field emission type</li>
                 <li>Stability:- better than 0.2%/h</li>
-                <li>Magnification:- 12-200000X(SE); 100-100000X(BSE)</li>
                 <li>
                   <span>Make:-</span> Carl Zeiss
                 </li>
