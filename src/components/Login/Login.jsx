@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 async function loginUser(credentials) {
-  return fetch("https://fesem-api.subhadipmandal.engineer/login", {
+  return fetch("https://api.subhadipmandal.engineer/fesem/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

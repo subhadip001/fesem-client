@@ -15,7 +15,7 @@ function Register() {
   };
 
   async function regUser(credentials) {
-    return fetch("https://fesem-api.subhadipmandal.engineer/register", {
+    return fetch("https://api.subhadipmandal.engineer/fesem/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
