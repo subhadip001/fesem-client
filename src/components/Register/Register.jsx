@@ -71,7 +71,7 @@ function Register() {
       <h3>Register</h3>
       {<LoadingSpinner loading={loading} />}
       {!loading && cond && (
-        <form id="register" onSubmit={handleSubmit}>
+        <form id="register" onSubmit={sendOtp}>
           <div className="form-wrapper">
             <div className="wrapper">
               <div>
