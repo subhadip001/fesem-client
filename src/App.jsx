@@ -37,6 +37,7 @@ function App({ routes }) {
         <Route path="/" element={<Booking />} />
         <Route path="/receipt" element={<Receipt />} />
         <Route path="/invoice" element = {<Invoice/>} />
+          <Route path="/report" element={<Report />} />
       </Route>
     )
   );
