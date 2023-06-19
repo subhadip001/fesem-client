@@ -15,19 +15,21 @@ import Admin from "./components/Admin/Admin";
 import Invoice from "./components/Invoice/Invoice";
 import useAdmin from "./components/useAdmin";
 import Abook from "./components/Abook/Abook";
+import Report from "./components/Report/Report";
 
 function App({ routes }) {
   const { token, setToken } = useToken();
-  const {admin , setAdmin } = useAdmin();
+  const { admin, setAdmin } = useAdmin();
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route path="/" element={<Homebar />} />
-        <Route path="/login" element={<Login setToken={setToken} setAdmin={setAdmin} />} />
+        <Route
+          path="/login"
+          element={<Login setToken={setToken} setAdmin={setAdmin} />}
+        />
         <Route path="/register" element={<Register />} />
-        
-        
       </Route>
     )
   );
@@ -36,8 +38,8 @@ function App({ routes }) {
       <Route>
         <Route path="/" element={<Booking />} />
         <Route path="/receipt" element={<Receipt />} />
-        <Route path="/invoice" element = {<Invoice/>} />
-          <Route path="/report" element={<Report />} />
+        <Route path="/invoice" element={<Invoice />} />
+        <Route path="/report" element={<Report />} />
       </Route>
     )
   );
@@ -45,7 +47,7 @@ function App({ routes }) {
     createRoutesFromElements(
       <Route>
         <Route path="/" element={<Admin />} />
-        <Route path="/abook" element={<Abook/>} />
+        <Route path="/abook" element={<Abook />} />
       </Route>
     )
   );
@@ -56,8 +58,7 @@ function App({ routes }) {
         <RouterProvider router={router} />
       </>
     );
-  }
-  else if(admin){
+  } else if (admin) {
     return (
       <>
         <RouterProvider router={router3} />
