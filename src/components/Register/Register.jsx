@@ -97,7 +97,7 @@ function Register() {
                   name="email"
                   placeholder="Enter your Email"
                   pattern=".+@.+\.iitr\.ac\.in"
-                  title="example@gmail.com"
+                  title="example@me.iitr.ac.in"
                   onChange={handleChange}
                   required
                 />
