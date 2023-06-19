@@ -11,6 +11,10 @@ function Register() {
   const[otp2,setOtp2] = useState("");
   const [cond,setCond] = useState(true);
   const navigate = useNavigate();
+  const handleOTP = (e) => {
+    const value = e.target.value;
+    setOtp(value);
+  };
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
