@@ -7,12 +7,35 @@ import LoadingSpinner from "../Spinner/LoadingSpinner";
 function Register() {
   const [inputs, setInputs] = useState({});
   const [loading, setLoading] = useState(false);
+   const [otp,setOtp] = useState("");
+  const[otp2,setOtp2] = useState("");
+  const [cond,setCond] = useState(true);
   const navigate = useNavigate();
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
+
+
+   const sendOtp = async (event) =>{
+    event.preventDefault();
+    setLoading(true);
+    fetch("https://api.subhadipmandal.engineer/fesem/otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({email : inputs.email}),
+    }).then(async(res) => {
+      if (res.status === 200) {
+        var body = await res.json();
+        setOtp2(body.otp);
+        setCond(false);
+        setLoading(false);
+      }
+    });
+  }
 
   async function regUser(credentials) {
     return fetch("https://api.subhadipmandal.engineer/fesem/register", {
@@ -30,17 +53,24 @@ function Register() {
   }
 
   const handleSubmit = (event) => {
-    setLoading(true);
     event.preventDefault();
+    if(otp==otp2){
+    setLoading(true);
     regUser(inputs);
     navigate("/login");
-  };
+    alert("Successfully Registered!");
+  }
+  else{
+    alert("Entered OTP is incorrect");
+  }
+}
+
   return (
     <>
       <Header />
       <h3>Register</h3>
       {<LoadingSpinner loading={loading} />}
-      {!loading && (
+      {!loading && cond && (
         <form id="register" onSubmit={handleSubmit}>
           <div className="form-wrapper">
             <div className="wrapper">
@@ -66,8 +96,8 @@ function Register() {
                   id="email"
                   name="email"
                   placeholder="Enter your Email"
-                  pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-                  title="example@gmail.com"
+                  pattern=".+@.+\.iitr\.ac\.in"
+                  title="example@me.iitr.ac.in"
                   onChange={handleChange}
                   required
                 />
@@ -197,6 +227,19 @@ function Register() {
           </div>
         </form>
       )}
+      {!loading&& !cond && <>
+       <div className="otp" >
+       <h2>Verify your Email</h2>
+       <p>Enter the OTP sent to your email</p>
+       <form onSubmit={handleSubmit}>
+        
+        <input type="text" placeholder="Enter OTP" onChange={handleOTP} required/>
+        <div className="button">
+                <input type="submit" value="Verify" style={{backgroundColor: "#51CA26"}} />
+              </div>
+       </form>
+       </div>
+      </>}
     </>
   );
 }

@@ -115,6 +115,15 @@ function Booking() {
       >
         LogOut
       </button>
+        <button
+        className="table-button"
+        style={{ backgroundColor: "blue", width: "80px" ,marginLeft:"10px"}}
+        value="Show Report"
+        onClick={()=>{navigate("/report")}}
+        
+      >
+        Show Report
+      </button>
       {bookingsAvailableThisWeek == 1 && condition && (
         <>
           <LoadingSpinner loading={loading} />
