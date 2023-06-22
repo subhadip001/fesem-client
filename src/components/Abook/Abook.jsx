@@ -3,6 +3,7 @@ import "./Abook.css";
 import Header from "../Header/Header";
 import LoadingSpinner from "../Spinner/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const nextDate = (index) => {
   var today = new Date();
@@ -32,21 +33,24 @@ function Abook() {
   const arr = [0, 1, 2, 3, 4, 5];
   const slots = [0, 1, 2, 3];
   const details = new Map();
+  const baseUrl = "https://api.subhadipmandal.engineer"
 
   const fetchdata = async () => {
-    fetch("https://api.subhadipmandal.engineer/fesem/book/fetch")
+    setLoading(true);
+    fetch(baseUrl+"/fesem/book/fetch")
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {
-          details.set(items.bookingCode, true);
+          details.set(items.bookingCode, items.userName);
         });
         setDetail(details);
         setLoading(false);
+        
       })
       .catch((err) => {
         console.log(err);
-        setLoading(true);
-        window.location.reload();
+        setLoading(false);
+        
       });
   };
 
@@ -54,26 +58,28 @@ function Abook() {
     fetchdata();
   }, []);
 
-  const handleSubmit = async (event) => {
-    fetch("https://api.subhadipmandal.engineer/fesem/book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        bookingTime: tempBook,
-        userName: "admin",
-      }),
-    })
-      .then((data) => {
-        data.json();
-        console.log(data);
-      })
-      .catch((e) => {
-        console.log(e);
+
+  const handleSubmit = async(e) => {
+    if(tempBook === ""){
+      alert("Please select a slot to block");
+      return;
+    }
+    
+    try {
+      const res = await axios.post(baseUrl+"/fesem/book", {
+        bookingTime : tempBook,
+        userName : "admin"
       });
-    window.location.reload();
-  };
+      console.log(tempBook)
+      console.log(res.data);
+      fetchdata()
+      console.log(tempBook)
+    } catch (error) {
+      console.log(error);
+    }
+    fetchdata()
+    console.log("hello")
+  }
 
   return (
     <>
@@ -116,29 +122,36 @@ function Abook() {
 
                     {slots.map(function (value, x) {
                       const string = `${nextDate(i + 1)}_${value}`;
-                      const avail = !detail.get(`${nextDate(i + 1)}_${value}`);
+                      const avail = detail.get(`${nextDate(i + 1)}_${value}`);
                       return (
                         <td key={value}>
                           <button
                             id={`${i}${x}`}
                             onClick={() => {
                               var y = null;
-                              y = avail ? string : y;
+                              y = !avail ? string : y;
                               setTempBook(y);
 
                               setBid(`${i}${x}`);
+                              
                             }}
                             className="table-button"
                             style={
                               bid === `${i}${x}`
                                 ? { backgroundColor: "orange" }
+                                : avail === "admin"
+                                ? { backgroundColor: "grey" }
                                 : avail
-                                ? { backgroundColor: "#51CA26" }
-                                : { backgroundColor: "red" }
+                                ? { backgroundColor: "red" }
+                                : { backgroundColor: "#51CA26" }
                             }
-                            disabled={!avail}
+                            disabled={avail}
                           >
-                            {avail ? "Available" : "Booked"}
+                            {avail === "admin"
+                              ? "Not-Available"
+                              : !avail
+                              ? "Available"
+                              : "Booked"}
                           </button>{" "}
                         </td>
                       );
@@ -148,20 +161,20 @@ function Abook() {
               })}
           </table>
           <div className="adminForm">
-            <form onSubmit={handleSubmit}>
+            
               <div className="button">
-                <input type="submit" value="Block Slot" />
+                <input onClick={()=>{console.log("h") + handleSubmit()}} type="button" value="Block Slot" />
               </div>
-            </form>
-            <form
-              onSubmit={() => {
+            
+            <div
+              onClick={() => {
                 navigate("/");
               }}
             >
               <div className="button">
-                <input type="submit" value="Go Back" />
+                <input type="button" value="Go Back" />
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </>

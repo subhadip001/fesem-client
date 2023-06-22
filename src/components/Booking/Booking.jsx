@@ -39,6 +39,7 @@ function Booking() {
   const userName = JSON.parse(sessionStorage.getItem("name"));
   const userEmail = JSON.parse(sessionStorage.getItem("email"));
   const dept = JSON.parse(sessionStorage.getItem("dept"));
+  const downloadUrl = JSON.parse(sessionStorage.getItem("downloadUrl"));
   const bookingsAvailableThisWeek = JSON.parse(
     sessionStorage.getItem("bookingsAvailableThisWeek")
   );
@@ -73,7 +74,7 @@ function Booking() {
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {
-          details.set(items.bookingCode, true);
+          details.set(items.bookingCode, items.userName);
         });
         setDetail(details);
         setLoading(false);
@@ -106,7 +107,9 @@ function Booking() {
 
   return (
     <>
+
       <Header />
+
       <button
         className="table-button"
         style={{ backgroundColor: "red", width: "80px" }}
@@ -115,12 +118,13 @@ function Booking() {
       >
         LogOut
       </button>
-        <button
+      <button
         className="table-button"
-        style={{ backgroundColor: "blue", width: "80px" ,marginLeft:"10px"}}
+        style={{ backgroundColor: "blue", width: "80px", marginLeft: "10px" }}
         value="Show Report"
-        onClick={()=>{navigate("/report")}}
-        
+        onClick={() => {
+          navigate("/report");
+        }}
       >
         Show Report
       </button>
@@ -163,16 +167,15 @@ function Booking() {
 
                       {slots.map(function (value, x) {
                         const string = `${nextDate(v + 1)}_${value}`;
-                        const avail = !detail.get(
-                          `${nextDate(v + 1)}_${value}`
-                        );
+                        const avail = detail.get(`${nextDate(v + 1)}_${value}`);
+                        console.log(avail);
                         return (
                           <td key={value}>
                             <button
                               id={`${i}${x}`}
                               onClick={() => {
                                 var y = null;
-                                y = avail ? string : y;
+                                y = !avail ? string : y;
                                 setTempBook(y);
                                 setSl(true);
                                 setBid(`${i}${x}`);
@@ -183,13 +186,20 @@ function Booking() {
                               style={
                                 bid === `${i}${x}`
                                   ? { backgroundColor: "orange" }
+                                  : avail == "admin"
+                                  ? { backgroundColor: "grey" }
                                   : avail
-                                  ? { backgroundColor: "#51CA26" }
-                                  : { backgroundColor: "red" }
+                                  ? { backgroundColor: "red" }
+                                  : { backgroundColor: "#51CA26" }
                               }
-                              disabled={!avail}
+                              disabled={avail}
+                      
                             >
-                              {avail ? "Available" : "Booked"}
+                              {avail == "admin"
+                                ? "Not-Available"
+                                : !avail
+                                ? "Available"
+                                : "Booked"}
                             </button>{" "}
                           </td>
                         );
@@ -206,16 +216,14 @@ function Booking() {
 
                       {slots.map(function (value, x) {
                         const string = `${nextDate(v + 1)}_${value}`;
-                        const avail = !detail.get(
-                          `${nextDate(v + 1)}_${value}`
-                        );
+                        const avail = detail.get(`${nextDate(v + 1)}_${value}`);
                         return (
                           <td key={value}>
                             <button
                               id={`${i}${x}`}
                               onClick={() => {
                                 var y = null;
-                                y = avail ? string : y;
+                                y = !avail ? string : y;
                                 setTempBook(y);
                                 setSl(true);
                                 setBid(`${i}${x}`);
@@ -226,13 +234,19 @@ function Booking() {
                               style={
                                 bid === `${i}${x}`
                                   ? { backgroundColor: "orange" }
+                                  : avail == "admin"
+                                  ? { backgroundColor: "grey" }
                                   : avail
-                                  ? { backgroundColor: "#51CA26" }
-                                  : { backgroundColor: "red" }
+                                  ? { backgroundColor: "red" }
+                                  : { backgroundColor: "#51CA26" }
                               }
-                              disabled={!avail}
+                              disabled={avail}
                             >
-                              {avail ? "Available" : "Booked"}
+                              {avail == "admin"
+                                ? "Not-Available"
+                                : !avail
+                                ? "Available"
+                                : "Booked"}
                             </button>
                           </td>
                         );

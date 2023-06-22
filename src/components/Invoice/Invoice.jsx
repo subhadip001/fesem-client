@@ -5,6 +5,14 @@ import image from "./iit.png";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useNavigate } from "react-router-dom";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import firebaseApp from "./firebase";
+import axios from "axios";
 
 function Invoice() {
   const userName = JSON.parse(sessionStorage.getItem("name"));
@@ -16,6 +24,20 @@ function Invoice() {
   const price = JSON.parse(sessionStorage.getItem("price"));
   const bookingCode = JSON.parse(sessionStorage.getItem("bookingTime"));
   const navigate = useNavigate();
+
+  const addInvoice = async (downloadUrl) => {
+    try {
+      const res = await axios.post("https://api.subhadipmandal.engineer/fesem/addInvoice", {
+        userEmail: userEmail,
+        bookingTime: bookingCode,
+        invoiceUrl: downloadUrl,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const downloadPdfDocument = (rootElementId) => {
     const input = document.getElementById(rootElementId);
     html2canvas(input).then((canvas) => {
@@ -23,14 +45,40 @@ function Invoice() {
       const pdf = new jsPDF();
       pdf.addImage(imgData, "JPEG", 0, 0);
       pdf.save("invoice.pdf");
+
+      const pdfData = pdf.output("blob");
+      const storage = getStorage(firebaseApp);
+      const storageRef = ref(storage, "invoice.pdf");
+      const uploadTask = uploadBytesResumable(storageRef, pdfData);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Progress of the upload
+        },
+        (error) => {
+          console.error("Error uploading file:", error);
+        },
+        () => {
+          // Upload completed
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("Download URL:", downloadURL);
+            addInvoice(downloadURL);
+            setTimeout(() => {
+              sessionStorage.setItem(
+                "bookingsAvailableThisWeek",
+                JSON.stringify(0)
+              );
+              navigate("/");
+            }, 2000);
+
+          });
+        }
+      );
     });
   };
- useEffect(() => {
+  useEffect(() => {
     downloadPdfDocument("divToDownload");
-    setTimeout(() => {
-      downloadPdfDocument("divToDownload");
-      navigate("/");
-    }, 10);
   }, []);
   const arr = [
     "9:30 A.M - 11:00A.M",
@@ -53,81 +101,78 @@ function Invoice() {
           </div>
         </div>
       </div>
-      <div className="abc">
-        <div className="invoice-form">
-          <div className="flexbox">
-            <div className="flexitem1">Username:</div>
-            <div className="flexitem2">{`${userName}`}</div>
-            <div className="flexitem3">Department:</div>
-            <div className="flexitem4">{`${dept}`}</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem1">Enrollment No:</div>
-            <div className="flexitem2">{`${enrollNo}`}</div>
-            <div className="flexitem3">Signature:</div>
-            <div className="flexitem4"></div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem5">Contact Details:</div>
-            <div className="flexitem3">Booking Slot:</div>
-            <div className="flexitem4">{`${
-              arr[bookingCode.split("_")[1]]
-            }`}</div>
-          </div>
 
-          <div className="flexbox">
-            <div className="flexitem1">Email:</div>
-            <div className="flexitem2">{`${userEmail}`}</div>
-            <div className="flexitem3">Booking ID:</div>
-            <div className="flexitem4"></div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem1">Contact No:</div>
-            <div className="flexitem2">{`${contactNo}`}</div>
-            <div className="flexitem3">Total Charges</div>
-            <div className="flexitem4">{`${price}`}</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem5">Sample Details:</div>
-            <div className="flexitem3">Service Name:</div>
-            <div className="flexitem4">{`${service}`}</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem1">Chromium Coating:</div>
-            <div className="flexitem2">Chromium Coating</div>
-            <div className="flexitem3">No of Samples:</div>
-            <div className="flexitem4">1</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem1">Supervisor Name:</div>
-            <div className="flexitem2"></div>
-            <div className="flexitem3">Supervisor Signature</div>
-            <div className="flexitem4"></div>
-          </div>
+      <div className="invoice-form">
+        <div className="flexbox">
+          <div className="flexitem1">Username:</div>
+          <div className="flexitem2">{`${userName}`}</div>
+          <div className="flexitem3">Department:</div>
+          <div className="flexitem4">{`${dept}`}</div>
         </div>
-        <>
-          <p></p>
-        </>
-        <div className="invoice-form">
-          <div className="flexbox">
-            <div className="flexitem6">For MIED Once Use Only</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem7">Payment Reciept No: __________</div>
-            <div className="flexitem7">Date: __________</div>
-            <div className="flexitem7">Amount Paid: __________</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem6">For FESEM Operator</div>
-          </div>
+        <div className="flexbox">
+          <div className="flexitem1">Enrollment No:</div>
+          <div className="flexitem2">{`${enrollNo}`}</div>
+          <div className="flexitem3">Signature:</div>
+          <div className="flexitem4"></div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem5">Contact Details:</div>
+          <div className="flexitem3">Booking Slot:</div>
+          <div className="flexitem4">{`${arr[bookingCode.split("_")[1]]}`}</div>
+        </div>
 
-          <div className="flexbox">
-            <div className="flexitem8">Form Recieved: Yes/No</div>
-            <div className="flexitem7">Payment Recieved: Yes/No</div>
-          </div>
-          <div className="flexbox">
-            <div className="flexitem9">Operator Signature : __________</div>
-          </div>
+        <div className="flexbox">
+          <div className="flexitem1">Email:</div>
+          <div className="flexitem2">{`${userEmail}`}</div>
+          <div className="flexitem3">Booking ID:</div>
+          <div className="flexitem4"></div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem1">Contact No:</div>
+          <div className="flexitem2">{`${contactNo}`}</div>
+          <div className="flexitem3">Total Charges</div>
+          <div className="flexitem4">{`${price}`}</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem5">Sample Details:</div>
+          <div className="flexitem3">Service Name:</div>
+          <div className="flexitem4">{`${service}`}</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem1">Chromium Coating:</div>
+          <div className="flexitem2">Chromium Coating</div>
+          <div className="flexitem3">No of Samples:</div>
+          <div className="flexitem4">1</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem1">Supervisor Name:</div>
+          <div className="flexitem2"></div>
+          <div className="flexitem3">Supervisor Signature</div>
+          <div className="flexitem4"></div>
+        </div>
+      </div>
+      <>
+        <p></p>
+      </>
+      <div className="invoice-form">
+        <div className="flexbox">
+          <div className="flexitem6">For MIED Once Use Only</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem7">Payment Reciept No: __________</div>
+          <div className="flexitem7">Date: __________</div>
+          <div className="flexitem7">Amount Paid: __________</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem6">For FESEM Operator</div>
+        </div>
+
+        <div className="flexbox">
+          <div className="flexitem8">Form Recieved: Yes/No</div>
+          <div className="flexitem7">Payment Recieved: Yes/No</div>
+        </div>
+        <div className="flexbox">
+          <div className="flexitem9">Operator Signature : __________</div>
         </div>
       </div>
     </div>

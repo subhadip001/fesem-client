@@ -33,7 +33,7 @@ function Receipt() {
   }, []);
 
   const handleSubmit = async (event) => {
-    fetch("https://api.subhadipmandal.engineer/fesem/book", {
+    fetch("http://localhost:5000/fesem/book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +57,7 @@ function Receipt() {
       });
     setButton(false);
     sessionStorage.setItem("price", price);
+    sessionStorage.setItem("userEmail", userEmail);
     sessionStorage.removeItem("coating");
     setTimeout(() => {
       navigate("/invoice");

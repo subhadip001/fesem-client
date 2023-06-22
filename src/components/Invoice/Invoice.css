@@ -7,16 +7,18 @@
     margin-bottom: 40px;
 }
 
-.headingiit{
+.headingiit {
     width: 350px;
 }
 
 .invoice-form {
-    border: 1px solid black;
-    width: 600px;
     margin-left: 10px;
-
+    width: 600px;
+    height: fit-content;
 }
+
+
+
 
 .flexbox {
     display: flex;
@@ -65,7 +67,10 @@
     text-decoration: underline;
     border: 1px solid black;
 }
-.abc{width: fit-content;}
+
+.abc {
+    width: fit-content;
+}
 
 .flexitem6 {
     width: 100%;
