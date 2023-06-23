@@ -56,13 +56,16 @@ function Booking() {
   const [loading, setLoading] = useState(true);
   const parr = [0, 1, 2, 3];
   const parr2 = [4, 5];
-  const arr = parr.filter((v) => {
+  var arr = parr.filter((v) => {
     if (day > 5) {
-      return parr;
+      return v;
     } else {
       return v >= day;
     }
   });
+  if(day==5){
+    arr = parr;
+  }
   const arr2 = parr2.filter((v) => {
     return v >= day;
   });
