@@ -19,7 +19,7 @@ function Homebar() {
       <div className="content"
       >
         <div className="about">
-          <h2 style={{ fontWeight: "bold" }}>IIC-MIED FESEM Machine</h2>
+          <h2 style={{ fontWeight: "bold" }}>MIED FESEM Machine</h2>
           <br />
           <ul>
             <li>
