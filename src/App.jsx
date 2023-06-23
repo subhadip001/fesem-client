@@ -16,6 +16,7 @@ import Invoice from "./components/Invoice/Invoice";
 import useAdmin from "./components/useAdmin";
 import Abook from "./components/Abook/Abook";
 import Report from "./components/Report/Report";
+import Edit from "./components/Edit/Edit";
 
 function App({ routes }) {
   const { token, setToken } = useToken();
@@ -40,6 +41,7 @@ function App({ routes }) {
         <Route path="/receipt" element={<Receipt />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/report" element={<Report />} />
+        <Route path="/edit" element={<Edit />} />
       </Route>
     )
   );

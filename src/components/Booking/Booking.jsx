@@ -107,7 +107,6 @@ function Booking() {
 
   return (
     <>
-
       <Header />
 
       <button
@@ -127,6 +126,16 @@ function Booking() {
         }}
       >
         Show Report
+      </button>
+      <button
+        className="table-button"
+        style={{ backgroundColor: "black", width: "80px", marginLeft: "10px" }}
+        value="Edit Profile"
+        onClick={() => {
+          navigate("/edit");
+        }}
+      >
+        Edit Profile
       </button>
       {bookingsAvailableThisWeek == 1 && condition && (
         <>
@@ -193,7 +202,6 @@ function Booking() {
                                   : { backgroundColor: "#51CA26" }
                               }
                               disabled={avail}
-                      
                             >
                               {avail == "admin"
                                 ? "Not-Available"
