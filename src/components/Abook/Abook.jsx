@@ -3,7 +3,6 @@ import "./Abook.css";
 import Header from "../Header/Header";
 import LoadingSpinner from "../Spinner/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const nextDate = (index) => {
   var today = new Date();
@@ -33,11 +32,10 @@ function Abook() {
   const arr = [0, 1, 2, 3, 4, 5];
   const slots = [0, 1, 2, 3];
   const details = new Map();
-  const baseUrl = "https://api.subhadipmandal.engineer"
+  const baseUrl = "https://api.subhadipmandal.engineer";
 
   const fetchdata = async () => {
-    setLoading(true);
-    fetch(baseUrl+"/fesem/book/fetch")
+    fetch(baseUrl + "/fesem/book/fetch")
       .then(async (res) => {
         var body = await res.json();
         body.array?.map((items) => {
@@ -45,12 +43,11 @@ function Abook() {
         });
         setDetail(details);
         setLoading(false);
-        
       })
       .catch((err) => {
         console.log(err);
-        setLoading(false);
-        
+        setLoading(true);
+        window.location.reload();
       });
   };
 
@@ -58,28 +55,38 @@ function Abook() {
     fetchdata();
   }, []);
 
-
-  const handleSubmit = async(e) => {
-    if(tempBook === ""){
-      alert("Please select a slot to block");
-      return;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (tempBook !== "") {
+      fetch(baseUrl + "/fesem/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bookingTime: tempBook,
+          userName: "admin",
+        }),
+      })
+        .then((data) => {
+          data.json();
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      var det = new Map();
+      det = detail;
+      det.set(tempBook, "admin");
+      setDetail(det);
+      setBid("");
+      setTempBook("");
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 30);
     }
-    
-    try {
-      const res = await axios.post(baseUrl+"/fesem/book", {
-        bookingTime : tempBook,
-        userName : "admin"
-      });
-      console.log(tempBook)
-      console.log(res.data);
-      fetchdata()
-      console.log(tempBook)
-    } catch (error) {
-      console.log(error);
-    }
-    fetchdata()
-    console.log("hello")
-  }
+  };
 
   return (
     <>
@@ -128,12 +135,10 @@ function Abook() {
                           <button
                             id={`${i}${x}`}
                             onClick={() => {
-                              var y = null;
-                              y = !avail ? string : y;
+                              var y = !avail ? string : null;
                               setTempBook(y);
 
                               setBid(`${i}${x}`);
-                              
                             }}
                             className="table-button"
                             style={
@@ -161,20 +166,20 @@ function Abook() {
               })}
           </table>
           <div className="adminForm">
-            
+            <form onSubmit={handleSubmit}>
               <div className="button">
-                <input onClick={()=>{console.log("h") + handleSubmit()}} type="button" value="Block Slot" />
+                <input type="submit" value="Block Slot" />
               </div>
-            
-            <div
-              onClick={() => {
+            </form>
+            <form
+              onSubmit={() => {
                 navigate("/");
               }}
             >
               <div className="button">
-                <input type="button" value="Go Back" />
+                <input type="submit" value="Go Back" />
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </>
