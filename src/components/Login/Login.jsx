@@ -29,7 +29,8 @@ function Login({ setToken, setAdmin }) {
         });
         alert("Email Sent!");
       } catch (error) {
-        alert(error.response.data.message);
+        console.log(error);
+        alert("Email has not been registered");
       }
     }
     if (email == "") {
