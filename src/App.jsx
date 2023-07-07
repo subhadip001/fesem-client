@@ -17,6 +17,7 @@ import useAdmin from "./components/useAdmin";
 import Abook from "./components/Abook/Abook";
 import Report from "./components/Report/Report";
 import Edit from "./components/Edit/Edit";
+import Table from "./components/Table/Table";
 
 function App({ routes }) {
   const { token, setToken } = useToken();
@@ -42,6 +43,7 @@ function App({ routes }) {
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/report" element={<Report />} />
         <Route path="/edit" element={<Edit />} />
+        <Route path="/table" element={<Table />} />
       </Route>
     )
   );

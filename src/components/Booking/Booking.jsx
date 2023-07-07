@@ -63,9 +63,9 @@ function Booking() {
       return v >= day;
     }
   });
-  if(day==5){
+  if (day == 5) {
     arr = parr;
-  }
+  }
   const arr2 = parr2.filter((v) => {
     return v >= day;
   });
@@ -139,6 +139,20 @@ function Booking() {
         }}
       >
         Edit Profile
+      </button>
+      <button
+        className="table-button"
+        style={{
+          backgroundColor: "#90EE90",
+          width: "80px",
+          marginLeft: "10px",
+        }}
+        value="Show Slots"
+        onClick={() => {
+          navigate("/table");
+        }}
+      >
+        Show Slots
       </button>
       {bookingsAvailableThisWeek == 1 && condition && (
         <>

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Header/Header";
 import LoadingSpinner from "../Spinner/LoadingSpinner";
+import Popup from "reactjs-popup";
 import "./Admin.css";
 import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState([]);
+  const [reason, setReason] = useState("");
   const navigate = useNavigate();
   const logout = () => {
     sessionStorage.clear();
@@ -20,6 +22,7 @@ function Admin() {
       },
       body: JSON.stringify({
         id: id,
+        reason: reason,
       }),
     })
       .then((data) => {
@@ -114,15 +117,61 @@ function Admin() {
                       <td className="ttd">{items.userDept}</td>
                       <td className="ttd">{items.service}</td>
                       <td className="ttd">
-                        <button
-                          className="table-button"
-                          onClick={() => {
-                            handleDelete(items._id);
-                          }}
-                          style={{ backgroundColor: "red" }}
+                        <Popup
+                          trigger={
+                            <button
+                              className="table-button"
+                              style={{ backgroundColor: "red" }}
+                            >
+                              {" "}
+                              Delete{" "}
+                            </button>
+                          }
+                          modal
+                          nested
                         >
-                          Delete
-                        </button>
+                          {(close) => (
+                            <div
+                              className="modal"
+                              data-backdrop="static"
+                              data-keyboard="false"
+                            >
+                              <div className="error" style={{ height: "50%" }}>
+                                <form
+                                  id="delete"
+                                  onSubmit={() => {
+                                    handleDelete(items._id);
+                                    close();
+                                  }}
+                                >
+                                  <div className="form-wrapper">
+                                    <div className="wrapper">
+                                      <div>
+                                        <label htmlFor="reason">
+                                          Enter Reason
+                                        </label>
+                                        <textarea
+                                          name="dept"
+                                          rows="8"
+                                          cols="40"
+                                          placeholder="Enter the reason"
+                                          id="dept"
+                                          form="register"
+                                          onChange={(e) => {
+                                            setReason(e.target.value);
+                                          }}
+                                          required
+                                        />
+
+                                        <input type="submit" value="Submit" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          )}
+                        </Popup>
                       </td>
                     </tr>
                   );

@@ -19,6 +19,23 @@ function Login({ setToken, setAdmin }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const forget = async (e) => {
+    e.preventDefault();
+    var email = prompt("Please enter your Email");
+    if (email != null && email != "") {
+      try {
+        await axios.post("https://api.subhadipmandal.engineer/fesem/forget", {
+          email: email,
+        });
+        alert("Email Sent!");
+      } catch (error) {
+        alert(error.response.data.message);
+      }
+    }
+    if (email == "") {
+      alert("Please enter the email id ");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await loginUser({
@@ -84,6 +101,9 @@ function Login({ setToken, setAdmin }) {
               required
             />
             <br />
+            <div className="forget" onClick={forget}>
+              forgot password?
+            </div>
             <br />
             <div className="button">
               <input type="submit" value="Login" />
