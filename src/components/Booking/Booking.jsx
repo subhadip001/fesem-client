@@ -63,7 +63,7 @@ function Booking() {
       return v >= day;
     }
   });
-  if (day == 5) {
+  if (day >= 5) {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
