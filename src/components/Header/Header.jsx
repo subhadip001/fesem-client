@@ -6,6 +6,7 @@ function Header() {
     <div className='header'>
     <div className='logo'></div>
     <h1>FESEM</h1>
+        <hr />
     </div>
   )
 }
