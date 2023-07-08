@@ -11,6 +11,7 @@ function Report() {
   const navigate = useNavigate();
   const logout = () => {
     sessionStorage.clear();
+    navigate("/");
     window.location.reload();
   };
   const arr = [
@@ -93,8 +94,6 @@ function Report() {
                   <th className="tth">Department</th>
                   <th className="tth">Service</th>
                   <th className="tth">Booking Done At</th>
-                  <th className="tth">Invoice</th>
-                  
                 </tr>
 
                 {details.map((items, i) => {
@@ -107,7 +106,6 @@ function Report() {
                       <td className="ttd">{items.userDept}</td>
                       <td className="ttd">{items.service}</td>
                       <td className="ttd">{items.createdAt.split("T")[0]}</td>
-                      <td className="ttd"><a href={items?.invoiceUrl} target="_blank" >Download</a></td>
                     </tr>
                   );
                 })}

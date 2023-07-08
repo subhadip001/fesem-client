@@ -8,6 +8,12 @@
     box-shadow: 0 0 0 1px black;
     overflow: hidden;
 }
+.modal{
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+}
+
 .ttd {
     border: 1px solid #443c68;
     min-width: max-content;
