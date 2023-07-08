@@ -26,7 +26,7 @@ function Admin() {
       }),
     })
       .then((data) => {
-        window.location.reload();
+        fetchdata();
       })
       .catch((e) => {
         console.log(e);
