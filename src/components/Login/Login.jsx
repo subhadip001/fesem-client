@@ -54,7 +54,12 @@ function Login({ setToken, setAdmin }) {
       sessionStorage.setItem("email", JSON.stringify(result.email));
       sessionStorage.setItem("dept", JSON.stringify(result.dept));
       sessionStorage.setItem("contactNo", JSON.stringify(result.contactNo));
+       if(result.enrollNo != undefined){
       sessionStorage.setItem("enrollNo", JSON.stringify(result.enrollNo));
+      }
+      else{
+        sessionStorage.setItem("enrollNo", JSON.stringify(""));
+      }
       sessionStorage.setItem(
         "bookingsAvailableThisWeek",
         JSON.stringify(result.bookingsAvailableThisWeek)
