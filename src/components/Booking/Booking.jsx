@@ -67,7 +67,12 @@ function Booking() {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
+    if(day<5){
     return v >= day;
+    }
+    else{
+      return v
+    }
   });
   const slots = [0, 1, 2, 3];
   const details = new Map();
