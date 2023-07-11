@@ -10,7 +10,7 @@ function Homebar() {
         <div className="logo">
           <img className="iitl" src={image2} />
         </div>
-        <h1>FESEM</h1>
+        <h1>Department of Mechanical and Industrial Engineering,IIT Roorkee</h1>
         <div className="links">
           <a href="/login">Login</a>
           <a href="/register">Register</a>
