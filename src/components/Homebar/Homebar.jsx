@@ -21,7 +21,7 @@ function Homebar() {
         <div className="about">
           <div className="wrapper">
             <img className="image" src={image} />
-            <h2 style={{ fontWeight: "bold" }}>IIC FESEM Machine</h2>
+            <h2 style={{ fontWeight: "bold" }}>FESEM Machine</h2>
           </div>
 
           <br />
