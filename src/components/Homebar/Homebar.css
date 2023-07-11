@@ -58,12 +58,12 @@ img {
     vertical-align: middle;
     height: 80px;
     display: inline;
-    padding-inline-start: 60%;
     line-height: 80px;
+    margin-left: 20%;
 }
 
 a {
-    margin: 40px;
+    margin: 25px;
     position: relative;
     font-size: 20px;
     text-decoration: none;
@@ -107,6 +107,7 @@ a:hover::before {
 
 .content {
     padding-top: 2%;
+
     gap: 10%;
 }
 
