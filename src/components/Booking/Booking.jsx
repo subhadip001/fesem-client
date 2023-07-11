@@ -67,11 +67,10 @@ function Booking() {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
-    if(day<5){
-    return v >= day;
-    }
-    else{
-      return v
+    if (day < 5) {
+      return v >= day;
+    } else {
+      return v;
     }
   });
   const slots = [0, 1, 2, 3];
@@ -410,7 +409,7 @@ function Booking() {
           </div>
         </>
       )}
-      {bookingsAvailableThisWeek != 1 && (
+      {bookingsAvailableThisWeek != 1 && userName != undefined && (
         <>
           <div className="error">
             Sorry you have already done booking for this week. Try again next

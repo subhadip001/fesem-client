@@ -51,7 +51,6 @@ img {
     text-align: center;
     vertical-align: middle;
     line-height: 80px;
-    background-color: grey;
     margin-right: 5%;
 }
 
@@ -108,9 +107,14 @@ a:hover::before {
 
 .content {
     padding-top: 2%;
+
+    gap: 10%;
+}
+
+.about {
     display: flex;
     flex-direction: row;
-    gap: 10%;
+    gap: 20%
 }
 
 ol li {

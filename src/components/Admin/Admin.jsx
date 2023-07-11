@@ -136,7 +136,14 @@ function Admin() {
                               data-backdrop="static"
                               data-keyboard="false"
                             >
-                              <div className="error" style={{ height: "50%" }}>
+                              <div
+                                className="error"
+                                style={{
+                                  height: "55%",
+                                  width: "42%",
+                                  backgroundColor: "#ff4040",
+                                }}
+                              >
                                 <form
                                   id="delete"
                                   onSubmit={() => {
@@ -164,6 +171,12 @@ function Admin() {
                                         />
 
                                         <input type="submit" value="Submit" />
+                                        <button
+                                          className="back"
+                                          onClick={close}
+                                        >
+                                          Go Back
+                                        </button>
                                       </div>
                                     </div>
                                   </div>

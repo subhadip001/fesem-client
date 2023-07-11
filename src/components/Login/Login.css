@@ -11,8 +11,8 @@
 }
 
 .lwrapper img {
-    height: 125%;
-    width: 125%;
+    height: 90%;
+    width: 90%;
     object-fit: contain;
 }
 
@@ -36,7 +36,7 @@ label {
     margin-right: 10%;
 }
 
-input[type=email],
+input[type=text],
 input[type=password] {
     padding: 6px;
     margin: 10px;

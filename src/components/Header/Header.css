@@ -12,6 +12,12 @@ h1 {
 
 }
 
+.iitl {
+    object-fit: fill;
+    max-height: 100%;
+    max-width: 100%;
+}
+
 
 .logo {
     height: 60px;
@@ -22,4 +28,3 @@ h1 {
     background-color: grey;
     margin-right: 3%;
 }
-

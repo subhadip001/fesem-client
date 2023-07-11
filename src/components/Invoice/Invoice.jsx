@@ -24,14 +24,23 @@ function Invoice() {
   const price = JSON.parse(sessionStorage.getItem("price"));
   const bookingCode = JSON.parse(sessionStorage.getItem("bookingTime"));
   const navigate = useNavigate();
+  var coating = "";
+  if (price % 50 == 0) {
+    coating = "No";
+  } else {
+    coating = "Yes";
+  }
 
   const addInvoice = async (downloadUrl) => {
     try {
-      const res = await axios.post("https://api.subhadipmandal.engineer/fesem/addInvoice", {
-        userEmail: userEmail,
-        bookingTime: bookingCode,
-        invoiceUrl: downloadUrl,
-      });
+      const res = await axios.post(
+        "https://api.subhadipmandal.engineer/fesem/addInvoice",
+        {
+          userEmail: userEmail,
+          bookingTime: bookingCode,
+          invoiceUrl: downloadUrl,
+        }
+      );
       console.log(res.data);
     } catch (error) {
       console.log(error);
@@ -71,7 +80,6 @@ function Invoice() {
               );
               navigate("/");
             }, 2000);
-
           });
         }
       );
@@ -139,8 +147,8 @@ function Invoice() {
           <div className="flexitem4">{`${service}`}</div>
         </div>
         <div className="flexbox">
-          <div className="flexitem1">Chromium Coating:</div>
-          <div className="flexitem2">Chromium Coating</div>
+          <div className="flexitem1">Coating:</div>
+          <div className="flexitem2">{coating}</div>
           <div className="flexitem3">No of Samples:</div>
           <div className="flexitem4">1</div>
         </div>
