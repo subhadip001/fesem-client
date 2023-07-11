@@ -8,7 +8,7 @@ function Header() {
    <div className='logo'>
       <img className='iitl' src={image}/>
     </div>
-    <h1>FESEM</h1>
+    <h1>Department of Mechanical and Industrial Engineering,IIT Roorkee</h1>
     </div>
   )
 }
