@@ -198,7 +198,7 @@ function Edit() {
               </div>
 
               <div className="button">
-                <input type="submit" value="Edit" />
+                <input type="submit" value="Submit" />
               </div>
             </div>
           </div>
