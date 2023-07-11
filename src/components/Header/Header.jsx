@@ -9,7 +9,6 @@ function Header() {
       <img className='iitl' src={image}/>
     </div>
     <h1>FESEM</h1>
-        <hr />
     </div>
   )
 }
