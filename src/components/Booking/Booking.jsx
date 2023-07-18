@@ -46,7 +46,7 @@ function Booking() {
   var cond1, cond2, condition;
   if (dept === "MIED") {
     cond1 = day < 4 || day > 5;
-    cond2 = day == 5 && hours >= 12;
+    cond2 = day == 4 && hours >= 12;
     condition = cond1 || cond2;
   } else {
     cond1 = day == 3 && hours > 12;
@@ -63,7 +63,7 @@ function Booking() {
       return v >= day;
     }
   });
-  if (day >= 5) {
+  if (day >= 4) {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
@@ -404,7 +404,7 @@ function Booking() {
       {bookingsAvailableThisWeek == 1 && !condition && (
         <>
           <div className="error">
-            Sorry the booking is closed as per now.. It will reopen at Friday
+            Sorry the booking is closed as per now.. It will reopen at Thursday 
             12pm for MIED Students and at Wednesday 12pm for Non-MIED Students
           </div>
         </>
