@@ -160,6 +160,7 @@ function Admin() {
                                         <textarea
                                           name="dept"
                                           rows="8"
+                                          className="textt"
                                           cols="40"
                                           placeholder="Enter the reason"
                                           id="dept"

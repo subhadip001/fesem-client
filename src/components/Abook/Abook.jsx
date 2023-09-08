@@ -109,10 +109,10 @@ function Abook() {
               <th
                 colSpan="4"
                 className="time"
-                style={{ textAlign: "center" }}
+                style={{ textAlign: "center" , fontSize:"16px",textDecoration:"underline"}}
                 scope="colgroup"
               >
-                Time
+                Slot Time
               </th>
             </tr>
             <tr>

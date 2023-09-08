@@ -114,310 +114,309 @@ function Booking() {
 
   return (
     <>
-      <Header />
+    <Header />
+    <button
+      className="table-button"
+      style={{ backgroundColor: "red", width: "100px",  marginLeft: "20px" , fontSize:"12px"}}
+      value="logout"
+      onClick={logout}
+    >
+      LogOut
+    </button>
+    <button
+      className="table-button"
+      style={{ backgroundColor: "blue", width: "100px", marginLeft: "20px" , fontSize:"12px"}}
+      value="Show Report"
+      onClick={() => {
+        navigate("/report");
+      }}
+    >
+      Show Report
+    </button>
+    <button
+      className="table-button"
+      style={{ backgroundColor: "black", width: "100px", marginLeft: "20px" , fontSize:"12px"}}
+      value="Edit Profile"
+      onClick={() => {
+        navigate("/edit");
+      }}
+    >
+      Edit Profile
+    </button>
+    <button
+      className="table-button"
+      style={{ backgroundColor: "#90EE90", width: "100px", marginLeft: "20px" , fontSize:"12px"}}
+      value="Show Slots"
+      onClick={() => {
+        navigate("/table");
+      }}
+    >
+      Show Slots
+    </button>
+    {bookingsAvailableThisWeek == 1 && condition && (
+      <>
+        <LoadingSpinner loading={loading} />
+        <div
+          className="table"
+          style={loading ? { display: "none" } : { display: "block" }}
+        >
+          <p className="title" style={{ fontWeight: "lighter" }}>
+            {`Welcome ${userName}, Book your slot now`}
+          </p>
+          <table className="booking-details">
+            <col />
+            <colgroup span="4"></colgroup>
+            <tr>
+              <td rowSpan="2"></td>
+              <th
+              colSpan="4"
+              className="time"
+              style={{ textAlign: "center" , fontSize:"16px",textDecoration:"underline"}}
+              scope="colgroup"
+            >
+              Slot Time
+            </th>
+            </tr>
+            <tr>
+              <th scope="col">9:30 A.M - 11:00A.M</th>
+              <th scope="col">11:30 A.M - 1:00P.M</th>
+              <th scope="col">2:00 P.M - 3:30P.M</th>
+              <th scope="col">4:00 P.M - 5:30P.M</th>
+            </tr>
+            {dept === "MIED" &&
+              detail !== undefined &&
+              arr.map(function (v, i) {
+                return (
+                  <tr key={i}>
+                    <th scope="row">{`${nextDate(v + 1)}`}</th>
 
-      <button
-        className="table-button"
-        style={{ backgroundColor: "red", width: "80px" }}
-        value="logout"
-        onClick={logout}
-      >
-        LogOut
-      </button>
-      <button
-        className="table-button"
-        style={{ backgroundColor: "blue", width: "80px", marginLeft: "10px" }}
-        value="Show Report"
-        onClick={() => {
-          navigate("/report");
-        }}
-      >
-        Show Report
-      </button>
-      <button
-        className="table-button"
-        style={{ backgroundColor: "black", width: "80px", marginLeft: "10px" }}
-        value="Edit Profile"
-        onClick={() => {
-          navigate("/edit");
-        }}
-      >
-        Edit Profile
-      </button>
-      <button
-        className="table-button"
-        style={{
-          backgroundColor: "#90EE90",
-          width: "80px",
-          marginLeft: "10px",
-        }}
-        value="Show Slots"
-        onClick={() => {
-          navigate("/table");
-        }}
-      >
-        Show Slots
-      </button>
-      {bookingsAvailableThisWeek == 1 && condition && (
-        <>
-          <LoadingSpinner loading={loading} />
-          <div
-            className="table"
-            style={loading ? { display: "none" } : { display: "block" }}
-          >
-            <p className="title" style={{ fontWeight: "lighter" }}>
-              {`Welcome ${userName}, Book your slot now`}
-            </p>
-            <table className="booking-details">
-              <col />
-              <colgroup span="4"></colgroup>
-              <tr>
-                <td rowSpan="2"></td>
-                <th
-                  colSpan="4"
-                  className="time"
-                  style={{ textAlign: "center" }}
-                  scope="colgroup"
-                >
-                  Time
-                </th>
-              </tr>
-              <tr>
-                <th scope="col">9:30 A.M - 11:00A.M</th>
-                <th scope="col">11:30 A.M - 1:00P.M</th>
-                <th scope="col">2:00 P.M - 3:30P.M</th>
-                <th scope="col">4:00 P.M - 5:30P.M</th>
-              </tr>
-              {dept === "MIED" &&
-                detail !== undefined &&
-                arr.map(function (v, i) {
-                  return (
-                    <tr key={i}>
-                      <th scope="row">{`${nextDate(v + 1)}`}</th>
+                    {slots.map(function (value, x) {
+                      const string = `${nextDate(v + 1)}_${value}`;
+                      const avail = detail.get(`${nextDate(v + 1)}_${value}`);
+                      console.log(avail);
+                      return (
+                        <td key={value}>
+                          <button
+                            id={`${i}${x}`}
+                            onClick={() => {
+                              var y = null;
+                              y = !avail ? string : y;
+                              setTempBook(y);
+                              setSl(true);
+                              setBid(`${i}${x}`);
+                              console.log(bid);
+                              console.log(tempBook);
+                            }}
+                            className="table-button"
+                            style={
+                              bid === `${i}${x}`
+                                ? { backgroundColor: "orange" }
+                                : avail == "admin"
+                                ? { backgroundColor: "grey" }
+                                : avail
+                                ? { backgroundColor: "red" }
+                                : { backgroundColor: "#51CA26" }
+                            }
+                            disabled={
+                              avail == "admin" || avail === false
+                                ? true
+                                : false
+                            }
+                          >
+                            {avail == "admin"
+                              ? "Not-Available"
+                              : !avail
+                              ? "Available"
+                              : "Booked"}
+                          </button>{" "}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            {dept !== "MIED" &&
+              detail !== undefined &&
+              arr2.map(function (v, i) {
+                return (
+                  <tr key={i}>
+                    <th scope="row">{`${nextDate(v + 1)}`}</th>
 
-                      {slots.map(function (value, x) {
-                        const string = `${nextDate(v + 1)}_${value}`;
-                        const avail = detail.get(`${nextDate(v + 1)}_${value}`);
-                        console.log(avail);
-                        return (
-                          <td key={value}>
-                            <button
-                              id={`${i}${x}`}
-                              onClick={() => {
-                                var y = null;
-                                y = !avail ? string : y;
-                                setTempBook(y);
-                                setSl(true);
-                                setBid(`${i}${x}`);
-                                console.log(bid);
-                                console.log(tempBook);
-                              }}
-                              className="table-button"
-                              style={
-                                bid === `${i}${x}`
-                                  ? { backgroundColor: "orange" }
-                                  : avail == "admin"
-                                  ? { backgroundColor: "grey" }
-                                  : avail
-                                  ? { backgroundColor: "red" }
-                                  : { backgroundColor: "#51CA26" }
-                              }
-                              disabled={avail}
-                            >
-                              {avail == "admin"
-                                ? "Not-Available"
-                                : !avail
-                                ? "Available"
-                                : "Booked"}
-                            </button>{" "}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              {dept !== "MIED" &&
-                detail !== undefined &&
-                arr2.map(function (v, i) {
-                  return (
-                    <tr key={i}>
-                      <th scope="row">{`${nextDate(v + 1)}`}</th>
+                    {slots.map(function (value, x) {
+                      const string = `${nextDate(v + 1)}_${value}`;
+                      const avail = detail.get(`${nextDate(v + 1)}_${value}`);
+                      return (
+                        <td key={value}>
+                          <button
+                            id={`${i}${x}`}
+                            onClick={() => {
+                              var y = null;
+                              y = !avail ? string : y;
+                              setTempBook(y);
+                              setSl(true);
+                              setBid(`${i}${x}`);
+                              console.log(bid);
+                              console.log(tempBook);
+                            }}
+                            className="table-button"
+                            style={
+                              bid === `${i}${x}`
+                                ? { backgroundColor: "orange" }
+                                : avail == "admin"
+                                ? { backgroundColor: "grey" }
+                                : avail
+                                ? { backgroundColor: "red" }
+                                : { backgroundColor: "#51CA26" }
+                            }
+                            disabled={avail}
+                          >
+                            {avail == "admin"
+                              ? "Not-Available"
+                              : !avail
+                              ? "Available"
+                              : "Booked"}
+                          </button>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+          </table>
+        </div>
+        <form onSubmit={handleSubmit} className="methods">
+          <div className="booking-wrapper">
+            {sl && (
+              <div className="services">
+                <h4>Booking Services</h4>
 
-                      {slots.map(function (value, x) {
-                        const string = `${nextDate(v + 1)}_${value}`;
-                        const avail = detail.get(`${nextDate(v + 1)}_${value}`);
-                        return (
-                          <td key={value}>
-                            <button
-                              id={`${i}${x}`}
-                              onClick={() => {
-                                var y = null;
-                                y = !avail ? string : y;
-                                setTempBook(y);
-                                setSl(true);
-                                setBid(`${i}${x}`);
-                                console.log(bid);
-                                console.log(tempBook);
-                              }}
-                              className="table-button"
-                              style={
-                                bid === `${i}${x}`
-                                  ? { backgroundColor: "orange" }
-                                  : avail == "admin"
-                                  ? { backgroundColor: "grey" }
-                                  : avail
-                                  ? { backgroundColor: "red" }
-                                  : { backgroundColor: "#51CA26" }
-                              }
-                              disabled={avail}
-                            >
-                              {avail == "admin"
-                                ? "Not-Available"
-                                : !avail
-                                ? "Available"
-                                : "Booked"}
-                            </button>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-            </table>
-          </div>
-          <form onSubmit={handleSubmit} className="methods">
-            <div className="booking-wrapper">
-              {sl && (
-                <div className="services">
-                  <h4>Booking Services</h4>
-
+                <div className="option">
+                  <input
+                    type="radio"
+                    id="fesem"
+                    name="service"
+                    onClick={() => {
+                      setCl(true);
+                    }}
+                    value="FESEM"
+                    onChange={(e) => {
+                      setService(e.target.value);
+                    }}
+                    required
+                  />
+                  <label style={{ fontSize: "15px" }} htmlFor="fesem">
+                    FESEM
+                  </label>
+                  <br />
+                </div>
+                <div className="option">
+                  <input
+                    type="radio"
+                    id="eds"
+                    name="service"
+                    onClick={() => {
+                      setCl(true);
+                    }}
+                    value="FESEM + EDS"
+                    onChange={(e) => {
+                      setService(e.target.value);
+                    }}
+                    required
+                  />
+                  <label style={{ fontSize: "15px" }} htmlFor="eds">
+                    FESEM + EDS
+                  </label>
+                  <br />
+                </div>
+                <div className="option">
+                  <input
+                    type="radio"
+                    id="ebsd"
+                    name="service"
+                    onClick={() => {
+                      setCl(true);
+                    }}
+                    value="FESEM + EDS + EBSD"
+                    onChange={(e) => {
+                      setService(e.target.value);
+                    }}
+                    required
+                  />
+                  <label style={{ fontSize: "15px" }} htmlFor="ebsd">
+                    FESEM + EDS + EBSD
+                  </label>
+                  <br />
+                </div>
+              </div>
+            )}
+            {cl && (
+              <div>
+                <h4>Charges</h4>
+                <div className="charges">
                   <div className="option">
                     <input
                       type="radio"
-                      id="fesem"
-                      name="service"
-                      onClick={() => {
-                        setCl(true);
-                      }}
-                      value="FESEM"
+                      id="withoutCoating"
+                      name="charge"
+                      value="withoutCoating"
                       onChange={(e) => {
-                        setService(e.target.value);
+                        setCoating(e.target.value);
                       }}
                       required
                     />
-                    <label style={{ fontSize: "15px" }} htmlFor="fesem">
-                      FESEM
+                    <label
+                      style={{ fontSize: "15px" }}
+                      htmlFor="withoutCoating"
+                    >
+                      Without Coating{" "}
+                      {dept === "MIED" ? `(Rs. 50)` : `(Rs. 100)`}
                     </label>
                     <br />
                   </div>
                   <div className="option">
                     <input
                       type="radio"
-                      id="eds"
-                      name="service"
-                      onClick={() => {
-                        setCl(true);
-                      }}
-                      value="FESEM + EDS"
+                      id="coating"
+                      name="charge"
+                      value="coating"
                       onChange={(e) => {
-                        setService(e.target.value);
+                        setCoating(e.target.value);
                       }}
                       required
                     />
-                    <label style={{ fontSize: "15px" }} htmlFor="eds">
-                      FESEM + EDS
-                    </label>
-                    <br />
-                  </div>
-                  <div className="option">
-                    <input
-                      type="radio"
-                      id="ebsd"
-                      name="service"
-                      onClick={() => {
-                        setCl(true);
-                      }}
-                      value="FESEM + EDS + EBSD"
-                      onChange={(e) => {
-                        setService(e.target.value);
-                      }}
-                      required
-                    />
-                    <label style={{ fontSize: "15px" }} htmlFor="ebsd">
-                      FESEM + EDS + EBSD
+                    <label style={{ fontSize: "15px" }} htmlFor="coating">
+                      With Coating{" "}
+                      {dept === "MIED" ? `(Rs. 75)` : `(Rs. 125)`}
                     </label>
                     <br />
                   </div>
                 </div>
-              )}
-              {cl && (
-                <div>
-                  <h4>Charges</h4>
-                  <div className="charges">
-                    <div className="option">
-                      <input
-                        type="radio"
-                        id="withoutCoating"
-                        name="charge"
-                        value="withoutCoating"
-                        onChange={(e) => {
-                          setCoating(e.target.value);
-                        }}
-                        required
-                      />
-                      <label
-                        style={{ fontSize: "15px" }}
-                        htmlFor="withoutCoating"
-                      >
-                        Without Coating{" "}
-                        {dept === "MIED" ? `(Rs. 50)` : `(Rs. 100)`}
-                      </label>
-                      <br />
-                    </div>
-                    <div className="option">
-                      <input
-                        type="radio"
-                        id="coating"
-                        name="charge"
-                        value="coating"
-                        onChange={(e) => {
-                          setCoating(e.target.value);
-                        }}
-                        required
-                      />
-                      <label style={{ fontSize: "15px" }} htmlFor="coating">
-                        With Coating{" "}
-                        {dept === "MIED" ? `(Rs. 75)` : `(Rs. 125)`}
-                      </label>
-                      <br />
-                    </div>
-                  </div>
-                  <div className="button">
-                    <input type="submit" value="Proceed" />
-                  </div>
+                <div className="button">
+                  <input type="submit" value="Proceed" />
                 </div>
-              )}
-            </div>
-          </form>
-        </>
-      )}
-      {bookingsAvailableThisWeek == 1 && !condition && (
-        <>
-          <div className="error">
-            Sorry the booking is closed as per now.. It will reopen at Thursday 
-            12pm for MIED Students and at Wednesday 12pm for Non-MIED Students
+              </div>
+            )}
           </div>
-        </>
-      )}
-      {bookingsAvailableThisWeek != 1 && userName != undefined && (
-        <>
-          <div className="error">
-            Sorry you have already done booking for this week. Try again next
-            week!
-          </div>
-        </>
-      )}
-    </>
+        </form>
+      </>
+    )}
+    {bookingsAvailableThisWeek == 1 && !condition && (
+      <>
+        <div className="error" style={{backgroundColor:"wheat",color:"blue"}}>
+          Sorry the booking is closed as per now.. It will reopen at Friday
+          12pm for MIED Students and at Wednesday 12pm for Non-MIED Students
+        </div>
+      </>
+    )}
+    {bookingsAvailableThisWeek != 1 && userName != undefined && (
+      <>
+        <div className="error" style={{backgroundColor:"wheat",color:"blue"}}>
+          Sorry you have already done booking for this week. Try again next
+          week!
+        </div>
+      </>
+    )}
+  </>
   );
 }
 

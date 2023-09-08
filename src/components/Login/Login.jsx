@@ -88,11 +88,12 @@ function Login({ setToken, setAdmin }) {
             <label htmlFor="email">Email</label>
             <br />
             <input
-              type="email"
+              type="text"
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               name="email"
               placeholder="Enter your email"
+              pattern=".+@.+\..+"
               title="example@gmail.com"
               required
             />
@@ -108,9 +109,7 @@ function Login({ setToken, setAdmin }) {
               required
             />
             <br />
-            <div className="forget" onClick={forget}>
-              forgot password?
-            </div>
+            <div className="forget" onClick={forget}>forgot password?</div>
             <br />
             <div className="button">
               <input type="submit" value="Login" />

@@ -71,180 +71,194 @@ function Register() {
 
   return (
     <>
-      <Header />
-      <h3>Register</h3>
-      {<LoadingSpinner loading={loading} />}
-      {!loading && cond && (
-        <form id="register" onSubmit={sendOtp}>
-          <div className="form-wrapper">
-            <div className="wrapper">
-              <div>
-                <label htmlFor="dept">User Type</label>
-                <select
-                  name="dept"
-                  id="dept"
-                  form="register"
-                  onChange={handleChange}
-                  required
-                >
-                  <option hidden disabled selected value></option>
-                  <option value="MIED">MIED</option>
-                  <option value="others">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="email">Student Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your Email"
-                  pattern=".+@.+\.iitr\.ac\.in"
-                  title="example@me.iitr.ac.in"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="enroll">Student Enrollment Number</label>
-                <input
-                  type="number"
-                  id="enroll"
-                  name="enroll"
-                  placeholder="Enter your Enroll number"
-                  min={0}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="mobile">Mobile Number</label>
-                <input
-                  type="number"
-                  id="mobile"
-                  name="mobile"
-                  placeholder="Enter your Mobile Number"
-                  min={0}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="date">
-                  Date of Registration Enrollment program
-                </label>
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="supervisor">Supervisor Name</label>
-                <input
-                  type="text"
-                  id="supervisor"
-                  name="supervisor"
-                  placeholder="Enter Name"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+    <Header />
+    <h3>Register</h3>
+    {<LoadingSpinner loading={loading} />}
+    {!loading && cond && (
+      <form id="register" onSubmit={sendOtp}>
+        <div className="form-wrapper">
+          <div className="wrapper">
+            <div>
+              <label htmlFor="dept">User Type</label>
+              <select
+                name="dept"
+                className="dept"
+                id="dept"
+                form="register"
+                onChange={handleChange}
+                required
+              >
+                <option hidden disabled selected value></option>
+                <option value="MIED">MIED</option>
+                <option value="others">Others(Pls provide your input)</option>
+              </select>
             </div>
 
-            <div className="wrapper2">
-              <div>
-                <label htmlFor="name">Student Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Enter Name"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <div>
+              <label htmlFor="email">Student Email</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Enter your Email"
+                pattern=".+@.+\..+\.iitr\.ac\.in"
+                title="example@me.iitr.ac.in"
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-              <div>
-                <label htmlFor="pass">Password</label>
-                <input
-                  type="password"
-                  id="pass"
-                  name="pass"
-                  placeholder="Enter Password"
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <div>
+              <label htmlFor="enroll">Student Enrollment Number</label>
+              <input
+                type="number"
+                id="enroll"
+                name="enroll"
+                placeholder="Enter your Enroll number"
+                min={0}
+                onChange={handleChange}
+              />
+            </div>
 
-              <div>
-                <label htmlFor="userType">Student Department</label>
-                <input
-                  type="text"
-                  id="userType"
-                  name="userType"
-                  placeholder=""
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+            <div>
+              <label htmlFor="mobile">Mobile Number</label>
+              <input
+                type="number"
+                id="mobile"
+                name="mobile"
+                placeholder="Enter your Mobile Number"
+                min={0}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-              <div>
-                <label htmlFor="program">Enrolled Program</label>
-                <select
-                  name="program"
-                  id="program"
-                  form="register"
-                  onChange={handleChange}
-                  required
-                >
-                  <option hidden disabled selected value></option>
-                  <option value="01">M.Tech</option>
-                  <option value="02">PhD</option>
-                  <option value="03">PostDoc</option>
-                </select>
-              </div>
-              <div className="space"></div>
+            <div>
+              <label htmlFor="date">
+                Date of Registration Enrollment program
+              </label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                required
+                onChange={handleChange}
+              />
+            </div>
 
-              <div>
-                <label htmlFor="supervisorDept">Supervisor Department</label>
-                <input
-                  type="text"
-                  id="supervisorDept"
-                  name="supervisorDept"
-                  placeholder=""
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="button">
-                <input type="submit" value="Register" />
-              </div>
+            <div>
+              <label htmlFor="supervisor">Supervisor Name</label>
+              <input
+                type="text"
+                id="supervisor"
+                name="supervisor"
+                placeholder="Enter Name"
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
-        </form>
-      )}
-      {!loading&& !cond && <>
-       <div className="otp" >
-       <h2>Verify your Email</h2>
-       <p>Enter the OTP sent to your email</p>
-       <form onSubmit={handleSubmit}>
-        
-        <input type="text" placeholder="Enter OTP" onChange={handleOTP} required/>
-        <div className="button">
-                <input type="submit" value="Verify" style={{backgroundColor: "#51CA26"}} />
-              </div>
-       </form>
-       </div>
-      </>}
-    </>
+
+          <div className="wrapper2">
+            <div>
+              <label htmlFor="name">Student Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter Name"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="pass">Password</label>
+              <input
+                type="password"
+                id="pass"
+                name="pass"
+                placeholder="Enter Password"
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="userType">Student Department</label>
+              <input
+                type="text"
+                id="userType"
+                name="userType"
+                placeholder=""
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="program">Enrolled Program</label>
+              <select
+                name="program"
+                id="program"
+                form="register"
+                onChange={handleChange}
+                required
+              >
+                <option hidden disabled selected value></option>
+                <option value="01">M.Tech</option>
+                <option value="02">PhD</option>
+                <option value="03">PostDoc</option>
+              </select>
+            </div>
+            <div className="space"></div>
+
+            <div style={{paddingTop: "20px"}}>
+              <label htmlFor="supervisorDept">Supervisor Department</label>
+              <input
+                className="sdept"
+                type="text"
+                id="supervisorDept"
+                name="supervisorDept"
+                placeholder=""
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div style={{width:"100%",alignItems:"center"}}>
+            <div className="button">
+              <input type="submit" value="Register" />
+            </div>
+            </div>
+           
+          </div>
+        </div>
+      </form>
+    )}
+    {!loading && !cond && (
+      <>
+        <div className="otp">
+          <h2>Verify your Email</h2>
+          <p>Enter the OTP sent to your email</p>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              onChange={handleOTP}
+              required
+            />
+            <div className="button">
+              <input
+                type="submit"
+                value="Verify"
+                style={{ backgroundColor: "#51CA26" }}
+              />
+            </div>
+          </form>
+        </div>
+      </>
+    )}
+  </>
   );
 }
 

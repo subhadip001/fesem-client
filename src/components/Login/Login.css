@@ -1,6 +1,7 @@
 .login-content {
     display: flex;
     flex-direction: row;
+    
     gap: 25%;
 }
 
@@ -11,8 +12,8 @@
 }
 
 .lwrapper img {
-    height: 90%;
-    width: 90%;
+    height: 85%;
+    width: 85%;
     object-fit: contain;
 }
 
@@ -36,7 +37,7 @@ label {
     margin-right: 10%;
 }
 
-input[type=email],
+input[type=text],
 input[type=password] {
     padding: 6px;
     margin: 10px;

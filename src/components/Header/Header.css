@@ -12,12 +12,11 @@ h1 {
 
 }
 
-.iitl {
+.iitl{
     object-fit: fill;
     max-height: 100%;
     max-width: 100%;
 }
-
 .logo {
     height: 60px;
     width: 60px;

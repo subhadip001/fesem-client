@@ -58,6 +58,7 @@ img {
     vertical-align: middle;
     height: 80px;
     display: inline;
+    color: blue;
     line-height: 80px;
     margin-left: 20%;
 }
@@ -100,8 +101,9 @@ a:hover::before {
 }
 
 .wrapper img {
-    height: 125%;
-    width: 125%;
+    margin-left: 100%;
+    height: 130%;
+    width: 130%;
     object-fit: contain;
 }
 

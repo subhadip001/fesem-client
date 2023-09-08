@@ -91,12 +91,14 @@ td {
 .error{
     width: 800px;
     height: 200px;
-    background-color: red;
+    
     font-size: 24px;
     text-align: center;
 vertical-align: middle;
 line-height: 100px; 
-    color: white;
+    color: blue;
+    background-color: wheat;
+    border-radius: 20px;
     
     position: absolute;
     top:0;
