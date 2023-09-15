@@ -11,6 +11,8 @@ function Register() {
   const [otp2, setOtp2] = useState("");
   const [cond, setCond] = useState(true);
   const navigate = useNavigate();
+    const baseUrl = "https://api.subhadipmandal.engineer";
+
   const handleOTP = (e) => {
     const value = e.target.value;
     setOtp(value);
@@ -24,7 +26,7 @@ function Register() {
   const sendOtp = async (event) => {
     event.preventDefault();
     setLoading(true);
-    fetch("http://localhost:8080/otp", {
+    fetch(baseUrl+"/otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,7 @@ function Register() {
   };
 
   async function regUser(credentials) {
-    return fetch("http://localhost:8080/register", {
+    return fetch(baseUrl+"/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
