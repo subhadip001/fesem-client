@@ -10,12 +10,14 @@ function Admin() {
   const [details, setDetails] = useState([]);
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
+  const baseUrl = "https://api.subhadipmandal.engineer";
+
   const logout = () => {
     sessionStorage.clear();
     window.location.reload();
   };
   const handleDelete = async (id) => {
-    fetch("http://localhost:8080/admin/delete", {
+    fetch(baseUrl+"/admin/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +43,7 @@ function Admin() {
     "4:00 P.M - 5:30P.M",
   ];
   const fetchdata = async () => {
-    fetch("http://localhost:8080/admin/fetch")
+    fetch(baseUrl+"/admin/fetch")
       .then(async (res) => {
         var body = await res.json();
         var arr2 = [];
