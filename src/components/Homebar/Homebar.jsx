@@ -16,10 +16,17 @@ function Homebar() {
           <a href="/register">Register</a>
         </div>
       </div>
-      <h2 className="about-heading">FESEM Booking</h2>
+      <h2 className="about-heading" style={{textAlign:"center"}}>FESEM Booking</h2>
       <div className="content">
+        
         <div className="about">
-        <div>
+        <div className="wrapper">
+
+<img className="image" src={image} />
+
+</div>
+        <div style={{marginLeft:"400px"}}>
+          
           <h2 style={{fontWeight:"bold"}}>Contact Details:</h2>
           <ul>
             <li>
@@ -54,11 +61,7 @@ function Homebar() {
           </ul>
           <br />
           </div>
-        <div className="wrapper">
-
-          <img className="image" src={image} />
-         
-        </div>
+       
          
           <br />
           

@@ -15,7 +15,7 @@ function Admin() {
     window.location.reload();
   };
   const handleDelete = async (id) => {
-    fetch("https://api.subhadipmandal.engineer/fesem/admin/delete", {
+    fetch("http://localhost:8080/admin/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,6 +27,7 @@ function Admin() {
     })
       .then((data) => {
         fetchdata();
+        console.log(reason);
       })
       .catch((e) => {
         console.log(e);
@@ -40,7 +41,7 @@ function Admin() {
     "4:00 P.M - 5:30P.M",
   ];
   const fetchdata = async () => {
-    fetch("https://api.subhadipmandal.engineer/fesem/admin/fetch")
+    fetch("http://localhost:8080/admin/fetch")
       .then(async (res) => {
         var body = await res.json();
         var arr2 = [];
@@ -141,7 +142,8 @@ function Admin() {
                                 style={{
                                   height: "55%",
                                   width: "42%",
-                                  backgroundColor: "#ff4040",
+                                  backgroundColor: "wheat",
+                                  color:"blue"
                                 }}
                               >
                                 <form
@@ -152,25 +154,29 @@ function Admin() {
                                   }}
                                 >
                                   <div className="form-wrapper">
-                                    <div className="wrapper">
+                                   
                                       <div>
                                         <label htmlFor="reason">
                                           Enter Reason
                                         </label>
+                                        <div >
                                         <textarea
                                           name="dept"
-                                          rows="8"
                                           className="textt"
-                                          cols="40"
+                                          rows="9"
+                                          cols="50"
                                           placeholder="Enter the reason"
                                           id="dept"
+
                                           form="register"
+                                          
                                           onChange={(e) => {
                                             setReason(e.target.value);
                                           }}
                                           required
                                         />
-
+                                         <div className="wrapper">
+                                        </div>
                                         <input type="submit" value="Submit" />
                                         <button
                                           className="back"
