@@ -33,21 +33,24 @@ function Receipt() {
   }, []);
 
   const handleSubmit = async (event) => {
-    fetch("https://api.subhadipmandal.engineer/fesem/book", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        bookingTime: bookingCode,
-        id: id2,
-        userName: userName,
-        userEmail: userEmail,
-        userDept: dept,
-        service: service,
-        price: price,
-      }),
-    })
+    fetch(
+      "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem/book",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          bookingTime: bookingCode,
+          id: id2,
+          userName: userName,
+          userEmail: userEmail,
+          userDept: dept,
+          service: service,
+          price: price,
+        }),
+      }
+    )
       .then((data) => {
         data.json();
         console.log(data);

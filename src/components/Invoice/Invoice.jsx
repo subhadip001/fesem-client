@@ -34,7 +34,7 @@ function Invoice() {
   const addInvoice = async (downloadUrl) => {
     try {
       const res = await axios.post(
-        "https://api.subhadipmandal.engineer/fesem/addInvoice",
+        "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem/addInvoice",
         {
           userEmail: userEmail,
           bookingTime: bookingCode,

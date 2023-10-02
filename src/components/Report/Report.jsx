@@ -21,15 +21,18 @@ function Report() {
     "4:00 P.M - 5:30P.M",
   ];
   const fetchdata = async () => {
-    fetch("https://api.subhadipmandal.engineer/fesem/report", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: userEmail,
-      }),
-    })
+    fetch(
+      "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem/report",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+        }),
+      }
+    )
       .then(async (res) => {
         var body = await res.json();
         var arr2 = [];
@@ -95,7 +98,6 @@ function Report() {
                   <th className="tth">Service</th>
                   <th className="tth">Booking Done At</th>
                   <th className="tth">Invoice</th>
-                  
                 </tr>
 
                 {details.map((items, i) => {
@@ -108,7 +110,11 @@ function Report() {
                       <td className="ttd">{items.userDept}</td>
                       <td className="ttd">{items.service}</td>
                       <td className="ttd">{items.createdAt.split("T")[0]}</td>
-                      <td className="ttd"><a href={items?.invoiceUrl} target="_blank" >Download</a></td>
+                      <td className="ttd">
+                        <a href={items?.invoiceUrl} target="_blank">
+                          Download
+                        </a>
+                      </td>
                     </tr>
                   );
                 })}

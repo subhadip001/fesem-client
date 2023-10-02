@@ -7,13 +7,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 async function loginUser(credentials) {
-  return fetch("https://api.subhadipmandal.engineer/fesem/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
+  return fetch(
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    }
+  ).then((data) => data.json());
 }
 
 function Login({ setToken, setAdmin }) {
@@ -25,9 +28,12 @@ function Login({ setToken, setAdmin }) {
     var email = prompt("Please enter your Email");
     if (email != null && email != "") {
       try {
-        await axios.post("https://api.subhadipmandal.engineer/fesem/forget", {
-          email: email,
-        });
+        await axios.post(
+          "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem/forget",
+          {
+            email: email,
+          }
+        );
         alert("Email Sent!");
       } catch (error) {
         console.log(error);
@@ -54,10 +60,9 @@ function Login({ setToken, setAdmin }) {
       sessionStorage.setItem("email", JSON.stringify(result.email));
       sessionStorage.setItem("dept", JSON.stringify(result.dept));
       sessionStorage.setItem("contactNo", JSON.stringify(result.contactNo));
-       if(result.enrollNo != undefined){
-      sessionStorage.setItem("enrollNo", JSON.stringify(result.enrollNo));
-      }
-      else{
+      if (result.enrollNo != undefined) {
+        sessionStorage.setItem("enrollNo", JSON.stringify(result.enrollNo));
+      } else {
         sessionStorage.setItem("enrollNo", JSON.stringify(""));
       }
       sessionStorage.setItem(
@@ -109,7 +114,9 @@ function Login({ setToken, setAdmin }) {
               required
             />
             <br />
-            <div className="forget" onClick={forget}>forgot password?</div>
+            <div className="forget" onClick={forget}>
+              forgot password?
+            </div>
             <br />
             <div className="button">
               <input type="submit" value="Login" />
