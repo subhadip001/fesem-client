@@ -78,7 +78,7 @@ function Edit() {
                   pattern={
                     inputs.dept === "MIED"
                       ? ".+@+me+.iitr.ac.in"
-                      : ".+@.+..+.iitr.ac.in"
+                      : ".+@.+.iitr.ac.in"
                   }
                   title="example@me.iitr.ac.in"
                   onChange={handleChange}

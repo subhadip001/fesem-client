@@ -12,7 +12,7 @@ function Register() {
   const [cond, setCond] = useState(true);
   const navigate = useNavigate();
   const baseUrl =
-    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem";
 
   const handleOTP = (e) => {
     const value = e.target.value;
@@ -104,7 +104,7 @@ function Register() {
                   pattern={
                     inputs.dept === "MIED"
                       ? ".+@+me+.iitr.ac.in"
-                      : ".+@.+..+.iitr.ac.in"
+                      : ".+@.+.iitr.ac.in"
                   }
                   title="example@me.iitr.ac.in"
                   onChange={handleChange}
