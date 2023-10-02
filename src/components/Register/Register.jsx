@@ -11,7 +11,8 @@ function Register() {
   const [otp2, setOtp2] = useState("");
   const [cond, setCond] = useState(true);
   const navigate = useNavigate();
-    const baseUrl = "https://api.subhadipmandal.engineer";
+  const baseUrl =
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
 
   const handleOTP = (e) => {
     const value = e.target.value;
@@ -26,7 +27,7 @@ function Register() {
   const sendOtp = async (event) => {
     event.preventDefault();
     setLoading(true);
-    fetch(baseUrl+"/otp", {
+    fetch(baseUrl + "/otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +44,7 @@ function Register() {
   };
 
   async function regUser(credentials) {
-    return fetch(baseUrl+"/register", {
+    return fetch(baseUrl + "/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -100,7 +101,11 @@ function Register() {
                   id="email"
                   name="email"
                   placeholder="Enter your Email"
-                  pattern={inputs.dept==='MIED' ? ".+@+me+\.iitr\.ac\.in" : ".+@.+\..+\.iitr\.ac\.in" }
+                  pattern={
+                    inputs.dept === "MIED"
+                      ? ".+@+me+.iitr.ac.in"
+                      : ".+@.+..+.iitr.ac.in"
+                  }
                   title="example@me.iitr.ac.in"
                   onChange={handleChange}
                   required
@@ -212,7 +217,7 @@ function Register() {
               </div>
               <div className="space"></div>
 
-              <div style={{paddingTop: "20px"}}>
+              <div style={{ paddingTop: "20px" }}>
                 <label htmlFor="supervisorDept">Supervisor Department</label>
                 <input
                   className="sdept"
@@ -224,16 +229,13 @@ function Register() {
                   required
                 />
               </div>
-            
-             
             </div>
-            
           </div>
-          <div style={{ marginRight:"260px", alignItems:"center"}}>
-              <div className="button" >
-                <input type="submit" value="Register" />
-              </div>
-              </div>
+          <div style={{ marginRight: "260px", alignItems: "center" }}>
+            <div className="button">
+              <input type="submit" value="Register" />
+            </div>
+          </div>
         </form>
       )}
       {!loading && !cond && (

@@ -10,14 +10,15 @@ function Admin() {
   const [details, setDetails] = useState([]);
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
-  const baseUrl = "https://api.subhadipmandal.engineer";
+  const baseUrl =
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
 
   const logout = () => {
     sessionStorage.clear();
     window.location.reload();
   };
   const handleDelete = async (id) => {
-    fetch(baseUrl+"/admin/delete", {
+    fetch(baseUrl + "/admin/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +44,7 @@ function Admin() {
     "4:00 P.M - 5:30P.M",
   ];
   const fetchdata = async () => {
-    fetch(baseUrl+"/admin/fetch")
+    fetch(baseUrl + "/admin/fetch")
       .then(async (res) => {
         var body = await res.json();
         var arr2 = [];
@@ -145,7 +146,7 @@ function Admin() {
                                   height: "55%",
                                   width: "42%",
                                   backgroundColor: "wheat",
-                                  color:"blue"
+                                  color: "blue",
                                 }}
                               >
                                 <form
@@ -156,12 +157,11 @@ function Admin() {
                                   }}
                                 >
                                   <div className="form-wrapper">
-                                   
+                                    <div>
+                                      <label htmlFor="reason">
+                                        Enter Reason
+                                      </label>
                                       <div>
-                                        <label htmlFor="reason">
-                                          Enter Reason
-                                        </label>
-                                        <div >
                                         <textarea
                                           name="dept"
                                           className="textt"
@@ -169,16 +169,13 @@ function Admin() {
                                           cols="50"
                                           placeholder="Enter the reason"
                                           id="dept"
-
                                           form="register"
-                                          
                                           onChange={(e) => {
                                             setReason(e.target.value);
                                           }}
                                           required
                                         />
-                                         <div className="wrapper">
-                                        </div>
+                                        <div className="wrapper"></div>
                                         <input type="submit" value="Submit" />
                                         <button
                                           className="back"

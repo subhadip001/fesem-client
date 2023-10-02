@@ -32,7 +32,8 @@ function Abook() {
   const arr = [0, 1, 2, 3, 4, 5];
   const slots = [0, 1, 2, 3];
   const details = new Map();
-  const baseUrl = "https://api.subhadipmandal.engineer";
+  const baseUrl =
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
 
   const fetchdata = async () => {
     fetch(baseUrl + "/fesem/book/fetch")
@@ -109,7 +110,11 @@ function Abook() {
               <th
                 colSpan="4"
                 className="time"
-                style={{ textAlign: "center" , fontSize:"16px",textDecoration:"underline"}}
+                style={{
+                  textAlign: "center",
+                  fontSize: "16px",
+                  textDecoration: "underline",
+                }}
                 scope="colgroup"
               >
                 Slot Time

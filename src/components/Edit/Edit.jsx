@@ -19,10 +19,11 @@ function Edit() {
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  const baseUrl = "https://api.subhadipmandal.engineer";
+  const baseUrl =
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
 
   async function updateUser(credentials) {
-    fetch(baseUrl+"/fesem/edit", {
+    fetch(baseUrl + "/fesem/edit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +75,11 @@ function Edit() {
                   id="email"
                   name="email"
                   value={userEmail}
-                  pattern= {inputs.dept==='MIED' ? ".+@+me+\.iitr\.ac\.in" : ".+@.+\..+\.iitr\.ac\.in" }
+                  pattern={
+                    inputs.dept === "MIED"
+                      ? ".+@+me+.iitr.ac.in"
+                      : ".+@.+..+.iitr.ac.in"
+                  }
                   title="example@me.iitr.ac.in"
                   onChange={handleChange}
                   disabled
