@@ -23,6 +23,9 @@ function Invoice() {
   const service = JSON.parse(sessionStorage.getItem("service"));
   const price = JSON.parse(sessionStorage.getItem("price"));
   const bookingCode = JSON.parse(sessionStorage.getItem("bookingTime"));
+  const str = bookingCode;
+  const bookingId = str.split("_")[0].split(" ")[1].split("(")[1].split("/");
+  const bId = "F-" + bookingId[0] + bookingId[1] + bookingId[2].split(")")[0] + str.split("_")[1];
   const navigate = useNavigate();
   var coating = "";
   if (price % 50 == 0) {
@@ -133,7 +136,7 @@ function Invoice() {
           <div className="flexitem1">Email:</div>
           <div className="flexitem2">{`${userEmail}`}</div>
           <div className="flexitem3">Booking ID:</div>
-          <div className="flexitem4"></div>
+          <div className="flexitem4">{bId}</div>
         </div>
         <div className="flexbox">
           <div className="flexitem1">Contact No:</div>
