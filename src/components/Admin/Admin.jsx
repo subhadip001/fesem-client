@@ -17,7 +17,7 @@ function Admin() {
     sessionStorage.clear();
     window.location.reload();
   };
-  const handleDelete = async (id) => {
+  const handleDelete = async (id,email) => {
     fetch(baseUrl + "/admin/delete", {
       method: "POST",
       headers: {
@@ -26,6 +26,7 @@ function Admin() {
       body: JSON.stringify({
         id: id,
         reason: reason,
+        email : email,
       }),
     })
       .then((data) => {
@@ -152,7 +153,7 @@ function Admin() {
                                 <form
                                   id="delete"
                                   onSubmit={() => {
-                                    handleDelete(items._id);
+                                    handleDelete(items._id,items.userEmail);
                                     close();
                                   }}
                                 >
