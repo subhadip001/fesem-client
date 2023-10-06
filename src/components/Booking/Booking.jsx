@@ -57,17 +57,17 @@ function Booking() {
   const parr = [0, 1, 2, 3];
   const parr2 = [4, 5];
   var arr = parr.filter((v) => {
-    if (day > 5) {
+    if (day >= 5) {
       return v;
     } else {
       return v >= day;
     }
   });
-  if (day >= 4) {
+  if (day >= 5) {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
-    if (day < 5) {
+    if (day < 6) {
       return v >= day;
     } else {
       return v;
