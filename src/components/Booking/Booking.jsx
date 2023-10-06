@@ -33,7 +33,7 @@ function Booking() {
   const [cl, setCl] = useState(false);
   const [coating, setCoating] = useState("");
   const d = new Date();
-  var day = d.getDay();
+  var day = d.getDay()-1;
   var hours = d.getHours();
   const navigate = useNavigate();
   const userName = JSON.parse(sessionStorage.getItem("name"));
@@ -96,8 +96,6 @@ function Booking() {
   };
 
   useEffect(() => {
-    console.log(day);
-    console.log(hours);
     fetchdata();
   }, []);
 
