@@ -96,6 +96,8 @@ function Booking() {
   };
 
   useEffect(() => {
+    console.log(day);
+    console.log(hours);
     fetchdata();
   }, []);
 
