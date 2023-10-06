@@ -56,11 +56,11 @@ function Invoice() {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       pdf.addImage(imgData, "JPEG", 0, 0);
-      pdf.save("invoice.pdf");
+      pdf.save(`invoice_${bId}.pdf`);
 
       const pdfData = pdf.output("blob");
       const storage = getStorage(firebaseApp);
-      const storageRef = ref(storage, "invoice.pdf");
+      const storageRef = ref(storage, `invoice_${bId}.pdf`);
       const uploadTask = uploadBytesResumable(storageRef, pdfData);
 
       uploadTask.on(
