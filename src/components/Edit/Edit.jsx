@@ -91,8 +91,8 @@ function Edit() {
                 <label htmlFor="enroll">Student Enrollment Number</label>
                 <input
                   type="number"
-                  id="enroll"
-                  name="enroll"
+                  id="enrollNo"
+                  name="enrollNo"
                   onChange={handleChange}
                   placeholder={enrollNo}
                   min={0}
