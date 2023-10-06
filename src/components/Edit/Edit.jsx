@@ -18,6 +18,7 @@ function Edit() {
     const name = e.target.name;
     const value = e.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
+    console.log(values);
   };
   const baseUrl =
     "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
