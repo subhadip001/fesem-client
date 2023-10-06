@@ -92,6 +92,7 @@ function Edit() {
                   type="number"
                   id="enroll"
                   name="enroll"
+                  onChange={handleChange}
                   placeholder={enrollNo}
                   min={0}
                 />
