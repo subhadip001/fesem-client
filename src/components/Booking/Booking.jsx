@@ -51,7 +51,7 @@ function Booking() {
   } else {
     cond1 = day == 3 && hours >= 12;
     cond2 = day < 6 ;
-    condition = cond1 && cond2;
+    condition = cond1 || cond2;
   }
   const [loading, setLoading] = useState(true);
   const parr = [0, 1, 2, 3];
