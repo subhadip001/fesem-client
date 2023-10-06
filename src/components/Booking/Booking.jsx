@@ -49,8 +49,8 @@ function Booking() {
     cond2 = day == 4 && hours >= 12;
     condition = cond1 || cond2;
   } else {
-    cond1 = day == 3 && hours > 12;
-    cond2 = day > 3;
+    cond1 = day == 4 && hours >= 12;
+    cond2 = day > 4;
     condition = cond1 || cond2;
   }
   const [loading, setLoading] = useState(true);
