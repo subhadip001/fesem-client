@@ -33,7 +33,7 @@ function Booking() {
   const [cl, setCl] = useState(false);
   const [coating, setCoating] = useState("");
   const d = new Date();
-  var day = d.getDay()-1;
+  var day = d.getDay();
   var hours = d.getHours();
   const navigate = useNavigate();
   const userName = JSON.parse(sessionStorage.getItem("name"));
@@ -45,13 +45,13 @@ function Booking() {
   );
   var cond1, cond2, condition;
   if (dept === "MIED") {
-    cond1 = day < 4 || day > 5;
-    cond2 = day == 4 && hours >= 12;
+    cond1 = day !=5;
+    cond2 = day == 5 && hours >= 12;
     condition = cond1 || cond2;
   } else {
-    cond1 = day == 4 && hours >= 12;
-    cond2 = day > 4;
-    condition = cond1 || cond2;
+    cond1 = day == 3 && hours >= 12;
+    cond2 = day < 6 ;
+    condition = cond1 && cond2;
   }
   const [loading, setLoading] = useState(true);
   const parr = [0, 1, 2, 3];
@@ -67,7 +67,7 @@ function Booking() {
     arr = parr;
   }
   const arr2 = parr2.filter((v) => {
-    if (day < 6) {
+    if (day > 3) {
       return v >= day;
     } else {
       return v;
