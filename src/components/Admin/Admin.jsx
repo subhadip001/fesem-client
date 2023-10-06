@@ -11,7 +11,7 @@ function Admin() {
   const [reason, setReason] = useState("");
   const navigate = useNavigate();
   const baseUrl =
-    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod";
+    "https://ni5f54c6p9.execute-api.ap-south-1.amazonaws.com/prod/fesem";
 
   const logout = () => {
     sessionStorage.clear();
