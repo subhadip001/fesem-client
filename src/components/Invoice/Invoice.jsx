@@ -107,13 +107,13 @@ function Invoice() {
               Department of Mechanical & Industrial Engineering
             </h2>
             <h2 className="headLogo">Indian Institute of Technology Roorkee</h2>
-            <h2 className="headLogo2">booking form for FESEM-EDS-EBSD</h2>
+            <h2 className="headLogo2">`Booking Form Date : {bookingCode.split("_")[0]}`</h2>
             <br />
           </div>
         </div>
       </div>
       <br />
-       <h2>`Booking Date : ${bookingCode.split("_")[0]}`</h2>
+      
       <div className="invoice-form">
         <div className="flexbox">
           <div className="flexitem1">Username:</div>
