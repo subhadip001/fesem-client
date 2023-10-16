@@ -107,7 +107,7 @@ function Invoice() {
               Department of Mechanical & Industrial Engineering
             </h2>
             <h2 className="headLogo">Indian Institute of Technology Roorkee</h2>
-            <h2 className="headLogo2">`Booking Form Date : {bookingCode.split("_")[0]}`</h2>
+            <h2 className="headLogo2">Booking Form Date : {bookingCode.split("_")[0]}</h2>
             <br />
           </div>
         </div>
