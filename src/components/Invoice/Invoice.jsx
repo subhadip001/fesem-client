@@ -130,7 +130,7 @@ function Invoice() {
         <div className="flexbox">
           <div className="flexitem5">Contact Details:</div>
           <div className="flexitem3">Booking Slot:</div>
-          <div className="flexitem4">{`bookingCode.split("_")[0]/${arr[bookingCode.split("_")[1]]}`}</div>
+          <div className="flexitem4">{`${arr[bookingCode.split("_")[1]]}`}</div>
         </div>
 
         <div className="flexbox">
