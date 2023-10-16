@@ -112,7 +112,8 @@ function Invoice() {
           </div>
         </div>
       </div>
-
+      <br />
+       <h2>`Booking Date : ${bookingCode.split("_")[0]}`</h2>
       <div className="invoice-form">
         <div className="flexbox">
           <div className="flexitem1">Username:</div>
